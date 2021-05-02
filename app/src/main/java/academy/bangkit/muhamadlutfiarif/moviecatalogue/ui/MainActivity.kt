@@ -1,5 +1,6 @@
-package academy.bangkit.muhamadlutfiarif.moviecatalogue
+package academy.bangkit.muhamadlutfiarif.moviecatalogue.ui
 
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.R
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
