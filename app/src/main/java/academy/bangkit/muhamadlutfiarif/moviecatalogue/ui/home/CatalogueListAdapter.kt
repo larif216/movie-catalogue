@@ -4,13 +4,15 @@ import academy.bangkit.muhamadlutfiarif.moviecatalogue.R
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.CatalogueEntity
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.databinding.ItemsCatalogueBinding
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
 class CatalogueListAdapter(
-    private val listItems: List<CatalogueEntity>
+    private val listItems: List<CatalogueEntity>,
+    private val listener: CatalogueClickListener
 ): RecyclerView.Adapter<CatalogueListAdapter.CatalogueViewHolder>() {
 
     inner class CatalogueViewHolder(private val binding: ItemsCatalogueBinding): RecyclerView.ViewHolder(binding.root) {
@@ -23,6 +25,10 @@ class CatalogueListAdapter(
                     .load(catalogue.poster)
                     .apply(RequestOptions().override(50, 75))
                     .into(binding.imgItemPoster)
+
+                itemView.setOnClickListener(View.OnClickListener {
+                    listener.onItemClicked(listItems[position])
+                })
             }
         }
     }
@@ -40,4 +46,8 @@ class CatalogueListAdapter(
     override fun getItemCount(): Int {
         return listItems.size
     }
+}
+
+interface CatalogueClickListener {
+    fun onItemClicked(catalogue: CatalogueEntity)
 }

@@ -11,4 +11,6 @@
     <string name="user_score_placeholder">User Score</string>
     <string name="genre">Genre</string>
     <string name="overview">Overview</string>
+    <string name="share">Share Catalogue</string>
+    <string name="share_item">Share %1$s to your friend right now.</string>
 </resources>
