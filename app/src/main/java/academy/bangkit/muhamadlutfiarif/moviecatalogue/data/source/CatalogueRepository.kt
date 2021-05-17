@@ -2,7 +2,6 @@ package academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source
 
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.local.entity.CatalogueEntity
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.remote.RemoteDataSource
-import android.util.Log
 
 class CatalogueRepository private constructor(private val remoteDataSource: RemoteDataSource): CatalogueDataSource {
     companion object {

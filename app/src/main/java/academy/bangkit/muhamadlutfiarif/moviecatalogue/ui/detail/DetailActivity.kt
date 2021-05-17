@@ -9,7 +9,6 @@ import androidx.core.app.ShareCompat
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import kotlinx.android.synthetic.main.activity_detail.view.*
 
 class DetailActivity : AppCompatActivity() {
 

@@ -26,9 +26,9 @@ class CatalogueListAdapter(
                     .apply(RequestOptions().override(50, 75))
                     .into(binding.imgItemPoster)
 
-                itemView.setOnClickListener(View.OnClickListener {
+                itemView.setOnClickListener {
                     listener.onItemClicked(listItems[position])
-                })
+                }
             }
         }
     }

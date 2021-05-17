@@ -13,7 +13,6 @@ import academy.bangkit.muhamadlutfiarif.moviecatalogue.ui.home.CatalogueClickLis
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.ui.home.CatalogueListAdapter
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.viewmodel.ViewModelFactory
 import android.content.Intent
-import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 
