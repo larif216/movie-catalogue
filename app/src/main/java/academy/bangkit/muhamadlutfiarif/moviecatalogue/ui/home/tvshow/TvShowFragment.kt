@@ -35,7 +35,7 @@ class TvShowFragment : Fragment(), CatalogueClickListener {
             val factory = ViewModelFactory.getInstance(requireActivity())
             viewModel = ViewModelProvider(this, factory)[TvShowViewModel::class.java]
 
-            viewModel.tvShows.observe(this, {
+            viewModel.getTvShows().observe(this, {
                 val catalogueListAdapter = CatalogueListAdapter(it, this)
 
                 with(binding.rvTvShows) {

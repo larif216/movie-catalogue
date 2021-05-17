@@ -2,6 +2,8 @@ package academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source
 
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.local.entity.CatalogueEntity
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.remote.RemoteDataSource
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 
 class CatalogueRepository private constructor(private val remoteDataSource: RemoteDataSource): CatalogueDataSource {
     companion object {
@@ -14,7 +16,7 @@ class CatalogueRepository private constructor(private val remoteDataSource: Remo
                 }
     }
 
-    override fun getMovies(): List<CatalogueEntity> {
+    override fun getMovies(): LiveData<List<CatalogueEntity>> {
         val movieResponses = remoteDataSource.getMovies()
         val movieList = ArrayList<CatalogueEntity>()
         for (response in movieResponses) {
@@ -30,10 +32,12 @@ class CatalogueRepository private constructor(private val remoteDataSource: Remo
             )
             movieList.add(movie)
         }
-        return movieList
+        val result = MutableLiveData<List<CatalogueEntity>>()
+        result.value = movieList
+        return result
     }
 
-    override fun getTvShows(): List<CatalogueEntity> {
+    override fun getTvShows(): LiveData<List<CatalogueEntity>> {
         val tvShowResponses = remoteDataSource.getTvShows()
         val tvShowList = ArrayList<CatalogueEntity>()
         for (response in tvShowResponses) {
@@ -49,8 +53,8 @@ class CatalogueRepository private constructor(private val remoteDataSource: Remo
             )
             tvShowList.add(tvShow)
         }
-        return tvShowList
+        val result = MutableLiveData<List<CatalogueEntity>>()
+        result.value = tvShowList
+        return result
     }
-
-
 }

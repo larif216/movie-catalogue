@@ -35,7 +35,7 @@ class MovieFragment : Fragment(), CatalogueClickListener {
             val factory = ViewModelFactory.getInstance(requireActivity())
             viewModel = ViewModelProvider(this, factory)[MovieViewModel::class.java]
 
-            viewModel.movies.observe(this, {
+            viewModel.getMovies().observe(this, {
                 val catalogueListAdapter = CatalogueListAdapter(it, this)
 
                 with(binding.rvMovies) {

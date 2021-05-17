@@ -23,10 +23,12 @@ class DetailViewModel(private val catalogueRepository: CatalogueRepository): Vie
             catalogueRepository.getTvShows()
         }
 
-        for (item in data) {
-            if (item.id == catalogueId) {
-                _selectedCatalogue.value = item
-                break
+        if (data != null) {
+            for (item in data.value!!) {
+                if (item.id == catalogueId) {
+                    _selectedCatalogue.value = item
+                    break
+                }
             }
         }
     }

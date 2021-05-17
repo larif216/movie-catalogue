@@ -1,6 +1,7 @@
 package academy.bangkit.muhamadlutfiarif.moviecatalogue.ui.home
 
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.R
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.utils.DataDummy
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click

@@ -8,12 +8,5 @@ import androidx.lifecycle.ViewModel
 
 class TvShowViewModel(private val catalogueRepository: CatalogueRepository): ViewModel() {
 
-    private val _tvShows = MutableLiveData<List<CatalogueEntity>>()
-    val tvShows: LiveData<List<CatalogueEntity>> = _tvShows
-
-    init {
-        _tvShows.value = getTvShows()
-    }
-
-    fun getTvShows(): List<CatalogueEntity> = catalogueRepository.getTvShows()
+    fun getTvShows(): LiveData<List<CatalogueEntity>> = catalogueRepository.getTvShows()
 }
