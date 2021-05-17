@@ -1,6 +1,5 @@
 package academy.bangkit.muhamadlutfiarif.moviecatalogue.ui.detail
 
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.utils.DataDummy
 import org.junit.Before
 import org.junit.Test
 

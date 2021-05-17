@@ -1,12 +1,15 @@
 package academy.bangkit.muhamadlutfiarif.moviecatalogue.ui.detail
 
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.CatalogueEntity
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.utils.DataDummy
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.CatalogueRepository
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.local.entity.CatalogueEntity
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class DetailViewModel: ViewModel() {
+class DetailViewModel(private val catalogueRepository: CatalogueRepository): ViewModel() {
 
-    private lateinit var selectedCatalogue: CatalogueEntity
+    private val _selectedCatalogue = MutableLiveData<CatalogueEntity>()
+    val selectedCatalogue: LiveData<CatalogueEntity> = _selectedCatalogue
 
     companion object {
         const val TYPE_MOVIE = 0
@@ -15,20 +18,16 @@ class DetailViewModel: ViewModel() {
 
     fun setCatalogueDetail(catalogueId: Int, type: Int) {
         val data = if (type == TYPE_MOVIE) {
-            DataDummy.generateDummyMovies()
+            catalogueRepository.getMovies()
         } else {
-            DataDummy.generateDummyTvShows()
+            catalogueRepository.getTvShows()
         }
 
         for (item in data) {
             if (item.id == catalogueId) {
-                selectedCatalogue = item
+                _selectedCatalogue.value = item
                 break
             }
         }
-    }
-
-    fun getCatalogueDetail(): CatalogueEntity {
-        return selectedCatalogue
     }
 }

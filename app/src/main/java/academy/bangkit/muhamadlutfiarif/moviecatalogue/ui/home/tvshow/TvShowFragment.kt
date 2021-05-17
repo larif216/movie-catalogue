@@ -5,14 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.R
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.CatalogueEntity
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.local.entity.CatalogueEntity
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.databinding.FragmentTvShowBinding
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.ui.detail.DetailActivity
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.ui.detail.DetailViewModel
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.ui.home.CatalogueClickListener
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.ui.home.CatalogueListAdapter
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.utils.DataDummy
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.viewmodel.ViewModelFactory
 import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,15 +32,18 @@ class TvShowFragment : Fragment(), CatalogueClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (activity != null) {
-            viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[TvShowViewModel::class.java]
-            val tvShows = viewModel.getTvShows()
-            val catalogueListAdapter = CatalogueListAdapter(tvShows, this)
+            val factory = ViewModelFactory.getInstance(requireActivity())
+            viewModel = ViewModelProvider(this, factory)[TvShowViewModel::class.java]
 
-            with(binding.rvTvShows) {
-                layoutManager = LinearLayoutManager(context)
-                setHasFixedSize(true)
-                adapter = catalogueListAdapter
-            }
+            viewModel.tvShows.observe(this, {
+                val catalogueListAdapter = CatalogueListAdapter(it, this)
+
+                with(binding.rvTvShows) {
+                    layoutManager = LinearLayoutManager(context)
+                    setHasFixedSize(true)
+                    adapter = catalogueListAdapter
+                }
+            })
         }
     }
 

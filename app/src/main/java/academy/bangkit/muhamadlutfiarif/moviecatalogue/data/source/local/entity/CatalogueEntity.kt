@@ -1,4 +1,4 @@
-package academy.bangkit.muhamadlutfiarif.moviecatalogue.data
+package academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.local.entity
 
 import kotlinx.android.parcel.Parcelize
 import android.os.Parcelable
@@ -12,5 +12,5 @@ data class CatalogueEntity(
     val duration: String,
     val userScore: String,
     val overview: String,
-    val poster: Int
+    val poster: String
 ): Parcelable

@@ -1,10 +1,19 @@
 package academy.bangkit.muhamadlutfiarif.moviecatalogue.ui.home.tvshow
 
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.CatalogueEntity
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.utils.DataDummy
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.CatalogueRepository
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.local.entity.CatalogueEntity
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class TvShowViewModel: ViewModel() {
+class TvShowViewModel(private val catalogueRepository: CatalogueRepository): ViewModel() {
 
-    fun getTvShows(): List<CatalogueEntity> = DataDummy.generateDummyTvShows()
+    private val _tvShows = MutableLiveData<List<CatalogueEntity>>()
+    val tvShows: LiveData<List<CatalogueEntity>> = _tvShows
+
+    init {
+        _tvShows.value = getTvShows()
+    }
+
+    fun getTvShows(): List<CatalogueEntity> = catalogueRepository.getTvShows()
 }
