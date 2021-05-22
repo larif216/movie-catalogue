@@ -1,13 +1,14 @@
 package academy.bangkit.muhamadlutfiarif.moviecatalogue.utils
 
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.local.entity.CatalogueEntity
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.local.entity.MovieEntity
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.local.entity.TvShowEntity
 
 object DataDummy {
 
-    fun generateDummyMovies(): List<CatalogueEntity> {
-        val movies = ArrayList<CatalogueEntity>()
+    fun generateDummyMovies(): List<MovieEntity> {
+        val movies = ArrayList<MovieEntity>()
         movies.add(
-            CatalogueEntity(
+            MovieEntity(
                 1,
                 "Alita: Battle Angel",
                 "February 14, 2019",
@@ -20,7 +21,7 @@ object DataDummy {
         )
 
         movies.add(
-            CatalogueEntity(
+            MovieEntity(
                 2,
                 "Aquaman",
                 "December 7, 2018",
@@ -33,7 +34,7 @@ object DataDummy {
         )
 
         movies.add(
-            CatalogueEntity(
+            MovieEntity(
                 3,
                 "Cold Pursuit",
                 "February 7, 2019",
@@ -46,7 +47,7 @@ object DataDummy {
         )
 
         movies.add(
-            CatalogueEntity(
+            MovieEntity(
                 4,
                 "Fantastic Beasts: The Crimes of Grindelwald",
                 "November 14, 2018",
@@ -59,7 +60,7 @@ object DataDummy {
         )
 
         movies.add(
-            CatalogueEntity(
+            MovieEntity(
                 5,
                 "Glass",
                 "January 16, 2019",
@@ -72,7 +73,7 @@ object DataDummy {
         )
 
         movies.add(
-            CatalogueEntity(
+            MovieEntity(
                 6,
                 "How to Train Your Dragon: The Hidden World",
                 "January 3, 2019",
@@ -85,7 +86,7 @@ object DataDummy {
         )
 
         movies.add(
-            CatalogueEntity(
+            MovieEntity(
                 7,
                 "Avengers: Infinity War",
                 "April 25, 2018",
@@ -98,7 +99,7 @@ object DataDummy {
         )
 
         movies.add(
-            CatalogueEntity(
+            MovieEntity(
                 8,
                 "Ralph Breaks the Internet",
                 "November 20, 2018",
@@ -111,7 +112,7 @@ object DataDummy {
         )
 
         movies.add(
-            CatalogueEntity(
+            MovieEntity(
                 9,
                 "Robin Hood",
                 "November 21, 2018",
@@ -124,7 +125,7 @@ object DataDummy {
         )
 
         movies.add(
-            CatalogueEntity(
+            MovieEntity(
                 10,
                 "Spider-Man: Into the Spider-Verse",
                 "December 6, 2018",
@@ -139,11 +140,11 @@ object DataDummy {
         return movies
     }
 
-    fun generateDummyTvShows(): List<CatalogueEntity> {
-        val tvShows = ArrayList<CatalogueEntity>()
+    fun generateDummyTvShows(): List<TvShowEntity> {
+        val tvShows = ArrayList<TvShowEntity>()
 
         tvShows.add(
-            CatalogueEntity(
+            TvShowEntity(
                 1,
                 "Arrow",
                 "October 10, 2012",
@@ -156,7 +157,7 @@ object DataDummy {
         )
 
         tvShows.add(
-            CatalogueEntity(
+            TvShowEntity(
                 2,
                 "Dragon Ball",
                 "February 26, 1986",
@@ -169,7 +170,7 @@ object DataDummy {
         )
 
         tvShows.add(
-            CatalogueEntity(
+            TvShowEntity(
                 3,
                 "Fairy Tail",
                 "October 12, 2009",
@@ -182,7 +183,7 @@ object DataDummy {
         )
 
         tvShows.add(
-            CatalogueEntity(
+            TvShowEntity(
                 4,
                 "The Flash",
                 "October 7, 2014",
@@ -195,7 +196,7 @@ object DataDummy {
         )
 
         tvShows.add(
-            CatalogueEntity(
+            TvShowEntity(
                 5,
                 "Gotham",
                 "September 22, 2014",
@@ -208,7 +209,7 @@ object DataDummy {
         )
 
         tvShows.add(
-            CatalogueEntity(
+            TvShowEntity(
                 6,
                 "Marvel's Iron Fist",
                 "March 17, 2017",
@@ -221,7 +222,7 @@ object DataDummy {
         )
 
         tvShows.add(
-            CatalogueEntity(
+            TvShowEntity(
                 7,
                 "Naruto Shippūden",
                 "February 15, 2007",
@@ -234,7 +235,7 @@ object DataDummy {
         )
 
         tvShows.add(
-            CatalogueEntity(
+            TvShowEntity(
                 8,
                 "Supergirl",
                 "October 26, 2015",
@@ -247,7 +248,7 @@ object DataDummy {
         )
 
         tvShows.add(
-            CatalogueEntity(
+            TvShowEntity(
                 9,
                 "The Simpsons",
                 "December 17, 1989",
@@ -260,7 +261,7 @@ object DataDummy {
         )
 
         tvShows.add(
-            CatalogueEntity(
+            TvShowEntity(
                 10,
                 "The Walking Dead",
                 "October 31, 2010",

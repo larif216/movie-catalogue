@@ -5,18 +5,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.local.entity.CatalogueEntity
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.local.entity.TvShowEntity
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.databinding.FragmentTvShowBinding
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.ui.detail.DetailActivity
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.ui.detail.DetailViewModel
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.ui.home.CatalogueClickListener
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.ui.home.CatalogueListAdapter
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.ui.activities.DetailActivity
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.ui.adapter.TvShowClickListener
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.ui.adapter.TvShowListAdapter
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.viewmodel.ViewModelFactory
 import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 
-class TvShowFragment : Fragment(), CatalogueClickListener {
+class TvShowFragment : Fragment(), TvShowClickListener {
 
     private lateinit var binding: FragmentTvShowBinding
     private lateinit var viewModel: TvShowViewModel
@@ -36,21 +35,21 @@ class TvShowFragment : Fragment(), CatalogueClickListener {
             viewModel = ViewModelProvider(this, factory)[TvShowViewModel::class.java]
 
             viewModel.getTvShows().observe(this, {
-                val catalogueListAdapter = CatalogueListAdapter(it, this)
+                val tvShowListAdapter = TvShowListAdapter(it, this)
 
                 with(binding.rvTvShows) {
                     layoutManager = LinearLayoutManager(context)
                     setHasFixedSize(true)
-                    adapter = catalogueListAdapter
+                    adapter = tvShowListAdapter
                 }
             })
         }
     }
 
-    override fun onItemClicked(catalogue: CatalogueEntity) {
+    override fun onItemClicked(catalogue: TvShowEntity) {
         val intent = Intent(context, DetailActivity::class.java)
         intent.putExtra("id", catalogue.id)
-        intent.putExtra("type", DetailViewModel.TYPE_TV_SHOW)
+        intent.putExtra("type", 1)
         startActivity(intent)
     }
 }

@@ -1,8 +1,7 @@
 package academy.bangkit.muhamadlutfiarif.moviecatalogue.ui.home.tvshow
 
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.CatalogueRepository
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.local.entity.CatalogueEntity
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.ui.home.movie.MovieViewModel
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.local.entity.TvShowEntity
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.utils.DataDummy
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
@@ -29,7 +28,7 @@ class TvShowViewModelTest {
     private lateinit var catalogueRepository: CatalogueRepository
 
     @Mock
-    private lateinit var observer: Observer<List<CatalogueEntity>>
+    private lateinit var observer: Observer<List<TvShowEntity>>
 
     @Before
     fun setUp() {
@@ -39,7 +38,7 @@ class TvShowViewModelTest {
     @Test
     fun getTvShows() {
         val dummyTvShow = DataDummy.generateDummyTvShows()
-        val tvShows = MutableLiveData<List<CatalogueEntity>>()
+        val tvShows = MutableLiveData<List<TvShowEntity>>()
         tvShows.value = dummyTvShow
 
         Mockito.`when`(catalogueRepository.getTvShows()).thenReturn(tvShows)

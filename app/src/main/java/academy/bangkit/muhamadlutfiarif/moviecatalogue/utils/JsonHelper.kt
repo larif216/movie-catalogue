@@ -1,6 +1,7 @@
 package academy.bangkit.muhamadlutfiarif.moviecatalogue.utils
 
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.local.entity.CatalogueEntity
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.local.entity.MovieEntity
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.local.entity.TvShowEntity
 import android.content.Context
 import org.json.JSONException
 import org.json.JSONObject
@@ -26,8 +27,8 @@ class JsonHelper(private val context: Context) {
         }
     }
 
-    fun loadCatalogue(fileName: String): List<CatalogueEntity> {
-        val list = ArrayList<CatalogueEntity>()
+    fun loadMovies(fileName: String): List<MovieEntity> {
+        val list = ArrayList<MovieEntity>()
         try {
             val responseObject = JSONObject(parsingFileToString(fileName).toString())
             val listArray = responseObject.getJSONArray("list")
@@ -43,7 +44,7 @@ class JsonHelper(private val context: Context) {
                 val overview = item.getString("overview")
                 val poster = item.getString("poster")
 
-                val catalogue = CatalogueEntity(
+                val movie = MovieEntity(
                         id.toInt(),
                         title,
                         releaseDate,
@@ -53,7 +54,43 @@ class JsonHelper(private val context: Context) {
                         overview,
                         poster
                 )
-                list.add(catalogue)
+                list.add(movie)
+            }
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+
+        return list
+    }
+
+    fun loadTvShows(fileName: String): List<TvShowEntity> {
+        val list = ArrayList<TvShowEntity>()
+        try {
+            val responseObject = JSONObject(parsingFileToString(fileName).toString())
+            val listArray = responseObject.getJSONArray("list")
+            for (i in 0 until listArray.length()) {
+                val item = listArray.getJSONObject(i)
+
+                val id = item.getString("id")
+                val title = item.getString("title")
+                val releaseDate = item.getString("releaseDate")
+                val genre = item.getString("genre")
+                val duration = item.getString("duration")
+                val userScore = item.getString("userScore")
+                val overview = item.getString("overview")
+                val poster = item.getString("poster")
+
+                val tvShow = TvShowEntity(
+                        id.toInt(),
+                        title,
+                        releaseDate,
+                        genre,
+                        duration,
+                        userScore,
+                        overview,
+                        poster
+                )
+                list.add(tvShow)
             }
         } catch (e: JSONException) {
             e.printStackTrace()

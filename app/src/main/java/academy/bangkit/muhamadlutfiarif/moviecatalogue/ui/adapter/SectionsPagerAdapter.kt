@@ -1,4 +1,4 @@
-package academy.bangkit.muhamadlutfiarif.moviecatalogue.ui.home
+package academy.bangkit.muhamadlutfiarif.moviecatalogue.ui.adapter
 
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.ui.home.movie.MovieFragment
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.ui.home.tvshow.TvShowFragment

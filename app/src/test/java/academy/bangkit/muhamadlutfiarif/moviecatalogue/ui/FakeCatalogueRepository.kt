@@ -1,19 +1,19 @@
 package academy.bangkit.muhamadlutfiarif.moviecatalogue.ui
 
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.CatalogueDataSource
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.CatalogueRepository
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.local.entity.CatalogueEntity
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.local.entity.MovieEntity
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.local.entity.TvShowEntity
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.remote.RemoteDataSource
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 
 class FakeCatalogueRepository(private val remoteDataSource: RemoteDataSource): CatalogueDataSource {
 
-    override fun getMovies(): LiveData<List<CatalogueEntity>> {
+    override fun getMovies(): LiveData<List<MovieEntity>> {
         val movieResponses = remoteDataSource.getMovies()
-        val movieList = ArrayList<CatalogueEntity>()
+        val movieList = ArrayList<MovieEntity>()
         for (response in movieResponses) {
-            val movie = CatalogueEntity(
+            val movie = MovieEntity(
                 response.id,
                 response.title,
                 response.releaseDate,
@@ -25,16 +25,16 @@ class FakeCatalogueRepository(private val remoteDataSource: RemoteDataSource): C
             )
             movieList.add(movie)
         }
-        val result = MutableLiveData<List<CatalogueEntity>>()
+        val result = MutableLiveData<List<MovieEntity>>()
         result.postValue(movieList)
         return result
     }
 
-    override fun getTvShows(): LiveData<List<CatalogueEntity>> {
+    override fun getTvShows(): LiveData<List<TvShowEntity>> {
         val tvShowResponses = remoteDataSource.getTvShows()
-        val tvShowList = ArrayList<CatalogueEntity>()
+        val tvShowList = ArrayList<TvShowEntity>()
         for (response in tvShowResponses) {
-            val tvShow = CatalogueEntity(
+            val tvShow = TvShowEntity(
                 response.id,
                 response.title,
                 response.releaseDate,
@@ -46,7 +46,7 @@ class FakeCatalogueRepository(private val remoteDataSource: RemoteDataSource): C
             )
             tvShowList.add(tvShow)
         }
-        val result = MutableLiveData<List<CatalogueEntity>>()
+        val result = MutableLiveData<List<TvShowEntity>>()
         result.postValue(tvShowList)
         return result
     }

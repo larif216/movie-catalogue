@@ -1,22 +1,21 @@
-package academy.bangkit.muhamadlutfiarif.moviecatalogue.ui.home
+package academy.bangkit.muhamadlutfiarif.moviecatalogue.ui.adapter
 
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.R
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.local.entity.CatalogueEntity
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.local.entity.MovieEntity
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.databinding.ItemsCatalogueBinding
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
-class CatalogueListAdapter(
-        private val listItems: List<CatalogueEntity>,
-        private val listener: CatalogueClickListener
-): RecyclerView.Adapter<CatalogueListAdapter.CatalogueViewHolder>() {
+class MovieListAdapter(
+        private val listItems: List<MovieEntity>,
+        private val listener: MovieClickListener
+): RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>() {
 
-    inner class CatalogueViewHolder(private val binding: ItemsCatalogueBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(catalogue: CatalogueEntity) {
+    inner class MovieViewHolder(private val binding: ItemsCatalogueBinding): RecyclerView.ViewHolder(binding.root) {
+        fun bind(catalogue: MovieEntity) {
             with(binding) {
                 tvItemTitle.text = catalogue.title
                 tvItemDate.text = catalogue.releaseDate
@@ -33,12 +32,12 @@ class CatalogueListAdapter(
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CatalogueViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val itemsCatalogueBinding = ItemsCatalogueBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return CatalogueViewHolder(itemsCatalogueBinding)
+        return MovieViewHolder(itemsCatalogueBinding)
     }
 
-    override fun onBindViewHolder(holder: CatalogueViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val item = listItems[position]
         holder.bind(item)
     }
@@ -48,6 +47,6 @@ class CatalogueListAdapter(
     }
 }
 
-interface CatalogueClickListener {
-    fun onItemClicked(catalogue: CatalogueEntity)
+interface MovieClickListener {
+    fun onItemClicked(catalogue: MovieEntity)
 }

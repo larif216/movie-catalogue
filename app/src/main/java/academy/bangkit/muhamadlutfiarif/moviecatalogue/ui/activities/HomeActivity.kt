@@ -1,7 +1,8 @@
-package academy.bangkit.muhamadlutfiarif.moviecatalogue.ui.home
+package academy.bangkit.muhamadlutfiarif.moviecatalogue.ui.activities
 
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.R
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.databinding.ActivityHomeBinding
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.ui.adapter.SectionsPagerAdapter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.google.android.material.tabs.TabLayoutMediator

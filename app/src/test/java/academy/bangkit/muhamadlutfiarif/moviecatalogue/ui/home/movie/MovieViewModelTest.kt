@@ -1,7 +1,7 @@
 package academy.bangkit.muhamadlutfiarif.moviecatalogue.ui.home.movie
 
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.CatalogueRepository
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.local.entity.CatalogueEntity
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.local.entity.MovieEntity
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.utils.DataDummy
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
@@ -29,7 +29,7 @@ class MovieViewModelTest {
     private lateinit var catalogueRepository: CatalogueRepository
 
     @Mock
-    private lateinit var observer: Observer<List<CatalogueEntity>>
+    private lateinit var observer: Observer<List<MovieEntity>>
 
     @Before
     fun setUp() {
@@ -39,7 +39,7 @@ class MovieViewModelTest {
     @Test
     fun getMovies() {
         val dummyMovies = DataDummy.generateDummyMovies()
-        val movies = MutableLiveData<List<CatalogueEntity>>()
+        val movies = MutableLiveData<List<MovieEntity>>()
         movies.value = dummyMovies
 
         `when`(catalogueRepository.getMovies()).thenReturn(movies)

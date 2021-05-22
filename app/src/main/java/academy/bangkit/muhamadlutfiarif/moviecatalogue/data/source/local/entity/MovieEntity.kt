@@ -4,7 +4,7 @@ import kotlinx.android.parcel.Parcelize
 import android.os.Parcelable
 
 @Parcelize
-data class CatalogueEntity(
+data class MovieEntity(
     val id: Int,
     val title: String,
     val releaseDate: String,
