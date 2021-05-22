@@ -5,8 +5,11 @@ import academy.bangkit.muhamadlutfiarif.moviecatalogue.databinding.ActivityDetai
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.ui.home.movie.MovieViewModel
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.ui.home.tvshow.TvShowViewModel
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.viewmodel.ViewModelFactory
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.core.app.ShareCompat
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
@@ -87,5 +90,15 @@ class DetailActivity : AppCompatActivity() {
                 }
             })
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.option_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return super.onOptionsItemSelected(item)
     }
 }

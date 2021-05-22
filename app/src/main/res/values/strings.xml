@@ -13,4 +13,6 @@
     <string name="overview">Overview</string>
     <string name="share">Share to your friend right now.</string>
     <string name="share_item">Hi! Lets watch %1$s together!</string>
+    <string name="favorite_button">Favorite button</string>
+    <string name="favorite_movie">Favorite Movie</string>
 </resources>
