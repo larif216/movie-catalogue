@@ -1,7 +1,8 @@
 package academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.remote
 
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.local.entity.MovieEntity
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.local.entity.TvShowEntity
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.remote.response.MovieResponse
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.remote.response.TvShowResponse
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.utils.JsonHelper
 
 class RemoteDataSource private constructor(private val jsonHelper: JsonHelper) {
@@ -16,7 +17,7 @@ class RemoteDataSource private constructor(private val jsonHelper: JsonHelper) {
                 }
     }
 
-    fun getMovies(): List<MovieEntity> = jsonHelper.loadMovies(JsonHelper.FILE_MOVIE)
+    fun getMovies(): List<MovieResponse> = jsonHelper.loadMovies(JsonHelper.FILE_MOVIE)
 
-    fun getTvShows(): List<TvShowEntity> = jsonHelper.loadTvShows(JsonHelper.FILE_TV_SHOW)
+    fun getTvShows(): List<TvShowResponse> = jsonHelper.loadTvShows(JsonHelper.FILE_TV_SHOW)
 }

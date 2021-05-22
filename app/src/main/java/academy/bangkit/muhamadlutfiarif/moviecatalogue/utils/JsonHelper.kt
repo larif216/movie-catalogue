@@ -2,6 +2,8 @@ package academy.bangkit.muhamadlutfiarif.moviecatalogue.utils
 
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.local.entity.MovieEntity
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.local.entity.TvShowEntity
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.remote.response.MovieResponse
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.remote.response.TvShowResponse
 import android.content.Context
 import org.json.JSONException
 import org.json.JSONObject
@@ -27,8 +29,8 @@ class JsonHelper(private val context: Context) {
         }
     }
 
-    fun loadMovies(fileName: String): List<MovieEntity> {
-        val list = ArrayList<MovieEntity>()
+    fun loadMovies(fileName: String): List<MovieResponse> {
+        val list = ArrayList<MovieResponse>()
         try {
             val responseObject = JSONObject(parsingFileToString(fileName).toString())
             val listArray = responseObject.getJSONArray("list")
@@ -44,7 +46,7 @@ class JsonHelper(private val context: Context) {
                 val overview = item.getString("overview")
                 val poster = item.getString("poster")
 
-                val movie = MovieEntity(
+                val movie = MovieResponse(
                         id.toInt(),
                         title,
                         releaseDate,
@@ -63,8 +65,8 @@ class JsonHelper(private val context: Context) {
         return list
     }
 
-    fun loadTvShows(fileName: String): List<TvShowEntity> {
-        val list = ArrayList<TvShowEntity>()
+    fun loadTvShows(fileName: String): List<TvShowResponse> {
+        val list = ArrayList<TvShowResponse>()
         try {
             val responseObject = JSONObject(parsingFileToString(fileName).toString())
             val listArray = responseObject.getJSONArray("list")
@@ -80,7 +82,7 @@ class JsonHelper(private val context: Context) {
                 val overview = item.getString("overview")
                 val poster = item.getString("poster")
 
-                val tvShow = TvShowEntity(
+                val tvShow = TvShowResponse(
                         id.toInt(),
                         title,
                         releaseDate,

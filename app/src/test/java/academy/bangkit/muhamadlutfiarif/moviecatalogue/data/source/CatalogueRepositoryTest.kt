@@ -18,8 +18,8 @@ class CatalogueRepositoryTest {
     private val remote = Mockito.mock(RemoteDataSource::class.java)
     private val catalogueRepository = FakeCatalogueRepository(remote)
 
-    private val movieResponses = DataDummy.generateDummyMovies()
-    private val tvShowResponses = DataDummy.generateDummyTvShows()
+    private val movieResponses = DataDummy.generateDummyMoviesResponse()
+    private val tvShowResponses = DataDummy.generateDummyTvShowsResponse()
 
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
