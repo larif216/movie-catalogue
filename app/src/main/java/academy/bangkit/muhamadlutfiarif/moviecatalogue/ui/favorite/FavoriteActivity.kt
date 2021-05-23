@@ -1,8 +1,8 @@
-package academy.bangkit.muhamadlutfiarif.moviecatalogue.ui.activities
+package academy.bangkit.muhamadlutfiarif.moviecatalogue.ui.favorite
 
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.R
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.databinding.ActivityFavoriteBinding
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.ui.adapter.SectionsPagerAdapter
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.ui.adapter.FavoriteSectionsPagerAdapter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.google.android.material.tabs.TabLayoutMediator
@@ -23,10 +23,10 @@ class FavoriteActivity : AppCompatActivity() {
         binding = ActivityFavoriteBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val sectionsPagerAdapter = SectionsPagerAdapter(this)
+        val sectionsPagerAdapter = FavoriteSectionsPagerAdapter(this)
         binding.viewPager.adapter = sectionsPagerAdapter
         TabLayoutMediator(binding.tabs, binding.viewPager) { tab, position ->
-            tab.text = resources.getString(FavoriteActivity.TAB_TITLES[position])
+            tab.text = resources.getString(TAB_TITLES[position])
         }.attach()
 
         supportActionBar?.elevation = 0f

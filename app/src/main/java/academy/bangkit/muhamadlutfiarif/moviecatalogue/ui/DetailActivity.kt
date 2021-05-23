@@ -1,16 +1,17 @@
-package academy.bangkit.muhamadlutfiarif.moviecatalogue.ui.activities
+package academy.bangkit.muhamadlutfiarif.moviecatalogue.ui
 
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.R
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.databinding.ActivityDetailBinding
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.ui.home.movie.MovieViewModel
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.ui.home.tvshow.TvShowViewModel
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.viewmodel.ViewModelFactory
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.core.app.ShareCompat
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -20,6 +21,8 @@ class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
     private lateinit var movieViewModel: MovieViewModel
     private lateinit var tvShowViewModel: TvShowViewModel
+
+    private var menu: Menu? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +36,7 @@ class DetailActivity : AppCompatActivity() {
 
         if (catalogueType == 0) {
             movieViewModel = ViewModelProvider(this, factory)[MovieViewModel::class.java]
-            movieViewModel.setMovieDetail(catalogueId)
+            movieViewModel.selectedMovie(catalogueId)
 
             movieViewModel.movieDetail.observe(this, { movie ->
                 with(binding) {
@@ -62,7 +65,7 @@ class DetailActivity : AppCompatActivity() {
             })
         } else {
             tvShowViewModel = ViewModelProvider(this, factory)[TvShowViewModel::class.java]
-            tvShowViewModel.setTvShowDetail(catalogueId)
+            tvShowViewModel.selectedTvShow(catalogueId)
 
             tvShowViewModel.tvShowDetail.observe(this, { tvShow ->
                 with(binding) {
@@ -95,10 +98,46 @@ class DetailActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater = menuInflater
         inflater.inflate(R.menu.option_menu, menu)
+        this.menu = menu
+        val catalogueType = intent.getIntExtra("type", 0)
+
+        if (catalogueType == 0) {
+            movieViewModel.movieDetail.observe(this, {
+                val state = it.isFavorite
+                Log.d("mvState", state.toString())
+                setFavoriteState(state)
+            })
+        } else {
+            tvShowViewModel.tvShowDetail.observe(this, {
+                val state = it.isFavorite
+                Log.d("tvState", state.toString())
+                setFavoriteState(state)
+            })
+        }
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.favorite_btn) {
+            val catalogueType = intent.getIntExtra("type", 0)
+            return if (catalogueType == 0) {
+                movieViewModel.setFavorite()
+                true
+            } else {
+                tvShowViewModel.setFavorite()
+                true
+            }
+        }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun setFavoriteState(state: Boolean) {
+        if (menu == null) return
+        val menuItem = menu?.findItem(R.id.favorite_btn)
+        if (state) {
+            menuItem?.icon = ContextCompat.getDrawable(this, R.drawable.ic_baseline_favorite_24)
+        } else {
+            menuItem?.icon = ContextCompat.getDrawable(this, R.drawable.ic_baseline_favorite_border_24)
+        }
     }
 }

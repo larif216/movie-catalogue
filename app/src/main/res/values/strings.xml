@@ -15,4 +15,5 @@
     <string name="share_item">Hi! Lets watch %1$s together!</string>
     <string name="favorite_button">Favorite button</string>
     <string name="favorite_movie">Favorite Movie</string>
+    <string name="something_wrong">Something wrong</string>
 </resources>

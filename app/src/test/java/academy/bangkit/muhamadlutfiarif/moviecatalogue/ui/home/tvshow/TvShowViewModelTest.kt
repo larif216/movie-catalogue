@@ -1,6 +1,6 @@
 package academy.bangkit.muhamadlutfiarif.moviecatalogue.ui.home.tvshow
 
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.CatalogueRepository
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.CatalogueRepository
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.local.entity.TvShowEntity
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.utils.DataDummy
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule

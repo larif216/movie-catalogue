@@ -1,28 +1,31 @@
 package academy.bangkit.muhamadlutfiarif.moviecatalogue.ui.home.movie
 
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.CatalogueRepository
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.CatalogueRepository
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.local.entity.MovieEntity
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.vo.Resource
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 
 class MovieViewModel(private val catalogueRepository: CatalogueRepository): ViewModel() {
 
-    private val _movieDetail = MutableLiveData<MovieEntity>()
-    val movieDetail: LiveData<MovieEntity> = _movieDetail
+    private val movieId = MutableLiveData<Int>()
 
-    fun getMovies(): LiveData<List<MovieEntity>> = catalogueRepository.getMovies()
+    fun selectedMovie(id: Int) {
+        movieId.value = id
+    }
 
-    fun setMovieDetail(id: Int) {
-        val data = catalogueRepository.getMovies()
+    fun getMovies(): LiveData<Resource<List<MovieEntity>>> = catalogueRepository.getMovies()
 
-        if (data != null) {
-            for (item in data.value!!) {
-                if (item.id == id) {
-                    _movieDetail.value = item
-                    break
-                }
-            }
-        }
+    fun getFavoriteMovies(): LiveData<List<MovieEntity>> = catalogueRepository.getFavoriteMovies()
+
+    var movieDetail: LiveData<MovieEntity> = Transformations.switchMap(movieId) { mMovieId ->
+        catalogueRepository.getMovieById(mMovieId)
+    }
+
+    fun setFavorite() {
+        val newState = !movieDetail.value!!.isFavorite
+        catalogueRepository.setFavoriteMovie(movieDetail.value!!, newState)
     }
 }

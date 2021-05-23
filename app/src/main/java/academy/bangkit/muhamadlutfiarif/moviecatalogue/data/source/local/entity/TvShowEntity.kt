@@ -3,11 +3,13 @@ package academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.local.entity
 import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 @Entity(tableName = "tv_show_table")
 data class TvShowEntity(
+        @PrimaryKey
         @ColumnInfo(name = "id")
         val id: Int,
 
@@ -30,5 +32,8 @@ data class TvShowEntity(
         val overview: String,
 
         @ColumnInfo(name = "poster")
-        val poster: String
+        val poster: String,
+
+        @ColumnInfo(name = "is_favorite")
+        var isFavorite: Boolean = false
 ): Parcelable

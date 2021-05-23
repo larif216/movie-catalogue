@@ -1,6 +1,6 @@
 package academy.bangkit.muhamadlutfiarif.moviecatalogue.ui
 
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.CatalogueDataSource
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.CatalogueDataSource
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.local.entity.MovieEntity
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.local.entity.TvShowEntity
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.remote.RemoteDataSource

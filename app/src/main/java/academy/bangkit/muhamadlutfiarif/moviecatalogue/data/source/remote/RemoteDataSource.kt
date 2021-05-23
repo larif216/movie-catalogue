@@ -1,13 +1,22 @@
 package academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.remote
 
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.local.entity.TvShowEntity
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.local.entity.MovieEntity
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.remote.response.MovieResponse
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.remote.response.TvShowResponse
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.utils.EspressoIdlingResource
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.utils.JsonHelper
+import android.os.Handler
+import android.os.Looper
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 
 class RemoteDataSource private constructor(private val jsonHelper: JsonHelper) {
 
+    private val handler = Handler(Looper.getMainLooper())
+
     companion object {
+        private const val SERVICE_LATENCY_IN_MILLIS: Long = 2000
+
         @Volatile
         private var instance: RemoteDataSource? = null
 
@@ -17,7 +26,23 @@ class RemoteDataSource private constructor(private val jsonHelper: JsonHelper) {
                 }
     }
 
-    fun getMovies(): List<MovieResponse> = jsonHelper.loadMovies(JsonHelper.FILE_MOVIE)
+    fun getMovies(): LiveData<ApiResponse<List<MovieResponse>>> {
+        EspressoIdlingResource.increment()
+        val resultMovies = MutableLiveData<ApiResponse<List<MovieResponse>>>()
+        handler.postDelayed({
+            resultMovies.value = ApiResponse.success(jsonHelper.loadMovies(JsonHelper.FILE_MOVIE))
+            EspressoIdlingResource.decrement()
+        }, SERVICE_LATENCY_IN_MILLIS)
+        return resultMovies
+    }
 
-    fun getTvShows(): List<TvShowResponse> = jsonHelper.loadTvShows(JsonHelper.FILE_TV_SHOW)
+    fun getTvShows(): LiveData<ApiResponse<List<TvShowResponse>>> {
+        EspressoIdlingResource.increment()
+        val resultTvShows = MutableLiveData<ApiResponse<List<TvShowResponse>>>()
+        handler.postDelayed({
+            resultTvShows.value = ApiResponse.success(jsonHelper.loadTvShows(JsonHelper.FILE_TV_SHOW))
+            EspressoIdlingResource.decrement()
+        }, SERVICE_LATENCY_IN_MILLIS)
+        return resultTvShows
+    }
 }

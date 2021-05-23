@@ -1,7 +1,8 @@
-package academy.bangkit.muhamadlutfiarif.moviecatalogue.ui.activities
+package academy.bangkit.muhamadlutfiarif.moviecatalogue.ui.home
 
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.R
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.databinding.ActivityHomeBinding
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.ui.favorite.FavoriteActivity
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.ui.adapter.SectionsPagerAdapter
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity

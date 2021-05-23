@@ -1,29 +1,31 @@
 package academy.bangkit.muhamadlutfiarif.moviecatalogue.ui.home.tvshow
 
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.CatalogueRepository
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.local.entity.MovieEntity
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.CatalogueRepository
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.local.entity.TvShowEntity
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.vo.Resource
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 
 class TvShowViewModel(private val catalogueRepository: CatalogueRepository): ViewModel() {
 
-    private val _tvShowDetail = MutableLiveData<TvShowEntity>()
-    val tvShowDetail: LiveData<TvShowEntity> = _tvShowDetail
+    private val tvShowId = MutableLiveData<Int>()
 
-    fun getTvShows(): LiveData<List<TvShowEntity>> = catalogueRepository.getTvShows()
+    fun selectedTvShow(id: Int) {
+        tvShowId.value = id
+    }
 
-    fun setTvShowDetail(id: Int) {
-        val data = catalogueRepository.getTvShows()
+    fun getTvShows(): LiveData<Resource<List<TvShowEntity>>> = catalogueRepository.getTvShows()
 
-        if (data != null) {
-            for (item in data.value!!) {
-                if (item.id == id) {
-                    _tvShowDetail.value = item
-                    break
-                }
-            }
-        }
+    fun getFavoriteTvShows(): LiveData<List<TvShowEntity>> = catalogueRepository.getFavoriteTvShows()
+
+    var tvShowDetail: LiveData<TvShowEntity> = Transformations.switchMap(tvShowId) { mTvShowId ->
+        catalogueRepository.getTvShowById(mTvShowId)
+    }
+
+    fun setFavorite() {
+        val newState = !tvShowDetail.value!!.isFavorite
+        catalogueRepository.setFavoriteTvShow(tvShowDetail.value!!, newState)
     }
 }

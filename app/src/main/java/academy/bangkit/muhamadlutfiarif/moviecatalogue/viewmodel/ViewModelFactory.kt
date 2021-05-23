@@ -1,6 +1,6 @@
 package academy.bangkit.muhamadlutfiarif.moviecatalogue.viewmodel
 
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.CatalogueRepository
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.CatalogueRepository
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.di.Injection
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.ui.home.movie.MovieViewModel
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.ui.home.tvshow.TvShowViewModel
