@@ -127,4 +127,28 @@ class CatalogueRepositoryTest {
         catalogueRepository.setFavoriteMovie(dummyMovie, newState)
         verify(local).setFavoriteMovie(dummyMovie, newState)
     }
+
+    @Test
+    fun setFavoriteTvShow() {
+        val dummyTvShow = DataDummy.generateDummyTvShows()[0]
+        val newState = !dummyTvShow.isFavorite
+
+        `when`(appExecutors.diskIO()).thenReturn(testExecutor.diskIO())
+        doNothing().`when`(local).setFavoriteTvShow(dummyTvShow, newState)
+
+        catalogueRepository.setFavoriteTvShow(dummyTvShow, newState)
+        verify(local).setFavoriteTvShow(dummyTvShow, newState)
+    }
+
+    @Test
+    fun setUnfavoredTvShow() {
+        val dummyTvShow = DataDummy.generateDummyTvShows()[0].copy(isFavorite = true)
+        val newState = !dummyTvShow.isFavorite
+
+        `when`(appExecutors.diskIO()).thenReturn(testExecutor.diskIO())
+        doNothing().`when`(local).setFavoriteTvShow(dummyTvShow, newState)
+
+        catalogueRepository.setFavoriteTvShow(dummyTvShow, newState)
+        verify(local).setFavoriteTvShow(dummyTvShow, newState)
+    }
 }
