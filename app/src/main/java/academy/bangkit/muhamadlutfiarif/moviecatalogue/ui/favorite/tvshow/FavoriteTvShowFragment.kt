@@ -41,7 +41,8 @@ class FavoriteTvShowFragment : Fragment(), TvShowClickListener {
 
             viewModel.getFavoriteTvShows().observe(this, {
                 if (it != null) {
-                    val tvShowListAdapter = TvShowListAdapter(it, this)
+                    val tvShowListAdapter = TvShowListAdapter(this)
+                    tvShowListAdapter.submitList(it)
                     tvShowListAdapter.notifyDataSetChanged()
 
                     with(binding.rvTvShows) {
@@ -54,9 +55,9 @@ class FavoriteTvShowFragment : Fragment(), TvShowClickListener {
         }
     }
 
-    override fun onItemClicked(catalogue: TvShowEntity) {
+    override fun onItemClicked(catalogue: TvShowEntity?) {
         val intent = Intent(context, DetailActivity::class.java)
-        intent.putExtra("id", catalogue.id)
+        intent.putExtra("id", catalogue?.id)
         intent.putExtra("type", 1)
         startActivity(intent)
     }

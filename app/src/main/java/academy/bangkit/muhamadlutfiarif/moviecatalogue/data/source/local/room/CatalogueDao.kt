@@ -4,22 +4,23 @@ import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.local.entity.
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.local.entity.TvShowEntity
 import android.graphics.Movie
 import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import androidx.room.*
 
 @Dao
 interface CatalogueDao {
 
     @Query("SELECT * FROM movie_table")
-    fun getMovies(): LiveData<List<MovieEntity>>
+    fun getMovies(): DataSource.Factory<Int, MovieEntity>
 
     @Query("SELECT * FROM tv_show_table")
-    fun getTvShows(): LiveData<List<TvShowEntity>>
+    fun getTvShows(): DataSource.Factory<Int, TvShowEntity>
 
     @Query("SELECT * FROM movie_table WHERE is_favorite = 1")
-    fun getFavoriteMovies(): LiveData<List<MovieEntity>>
+    fun getFavoriteMovies(): DataSource.Factory<Int, MovieEntity>
 
     @Query("SELECT * FROM tv_show_table WHERE is_favorite = 1")
-    fun getFavoriteTvShows(): LiveData<List<TvShowEntity>>
+    fun getFavoriteTvShows(): DataSource.Factory<Int, TvShowEntity>
 
     @Query("SELECT * FROM movie_table WHERE id = :id")
     fun getMovieById(id: Int): LiveData<MovieEntity>

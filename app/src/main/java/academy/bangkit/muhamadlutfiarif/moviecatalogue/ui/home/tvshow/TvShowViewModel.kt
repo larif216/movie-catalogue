@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import androidx.paging.PagedList
 
 class TvShowViewModel(private val catalogueRepository: CatalogueRepository): ViewModel() {
 
@@ -16,9 +17,9 @@ class TvShowViewModel(private val catalogueRepository: CatalogueRepository): Vie
         tvShowId.value = id
     }
 
-    fun getTvShows(): LiveData<Resource<List<TvShowEntity>>> = catalogueRepository.getTvShows()
+    fun getTvShows(): LiveData<Resource<PagedList<TvShowEntity>>> = catalogueRepository.getTvShows()
 
-    fun getFavoriteTvShows(): LiveData<List<TvShowEntity>> = catalogueRepository.getFavoriteTvShows()
+    fun getFavoriteTvShows(): LiveData<PagedList<TvShowEntity>> = catalogueRepository.getFavoriteTvShows()
 
     var tvShowDetail: LiveData<TvShowEntity> = Transformations.switchMap(tvShowId) { mTvShowId ->
         catalogueRepository.getTvShowById(mTvShowId)

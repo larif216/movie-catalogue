@@ -43,7 +43,8 @@ class TvShowFragment : Fragment(), TvShowClickListener {
                         Status.LOADING -> binding.progressBar.visibility = View.VISIBLE
                         Status.SUCCESS -> {
                             binding.progressBar.visibility = View.GONE
-                            val tvShowListAdapter = TvShowListAdapter(it.data!!, this)
+                            val tvShowListAdapter = TvShowListAdapter(this)
+                            tvShowListAdapter.submitList(it.data)
                             tvShowListAdapter.notifyDataSetChanged()
 
                             with(binding.rvTvShows) {
@@ -62,9 +63,9 @@ class TvShowFragment : Fragment(), TvShowClickListener {
         }
     }
 
-    override fun onItemClicked(catalogue: TvShowEntity) {
+    override fun onItemClicked(catalogue: TvShowEntity?) {
         val intent = Intent(context, DetailActivity::class.java)
-        intent.putExtra("id", catalogue.id)
+        intent.putExtra("id", catalogue?.id)
         intent.putExtra("type", 1)
         startActivity(intent)
     }

@@ -40,7 +40,8 @@ class FavoriteMovieFragment : Fragment(), MovieClickListener {
 
             viewModel.getFavoriteMovies().observe(this, {
                 if (it != null) {
-                    val movieListAdapter = MovieListAdapter(it, this)
+                    val movieListAdapter = MovieListAdapter(this)
+                    movieListAdapter.submitList(it)
                     movieListAdapter.notifyDataSetChanged()
 
                     with(binding.rvMovies) {
@@ -53,9 +54,9 @@ class FavoriteMovieFragment : Fragment(), MovieClickListener {
         }
     }
 
-    override fun onItemClicked(catalogue: MovieEntity) {
+    override fun onItemClicked(catalogue: MovieEntity?) {
         val intent = Intent(context, DetailActivity::class.java)
-        intent.putExtra("id", catalogue.id)
+        intent.putExtra("id", catalogue?.id)
         intent.putExtra("type", 0)
         startActivity(intent)
     }

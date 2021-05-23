@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import androidx.paging.PagedList
 
 class MovieViewModel(private val catalogueRepository: CatalogueRepository): ViewModel() {
 
@@ -16,9 +17,9 @@ class MovieViewModel(private val catalogueRepository: CatalogueRepository): View
         movieId.value = id
     }
 
-    fun getMovies(): LiveData<Resource<List<MovieEntity>>> = catalogueRepository.getMovies()
+    fun getMovies(): LiveData<Resource<PagedList<MovieEntity>>> = catalogueRepository.getMovies()
 
-    fun getFavoriteMovies(): LiveData<List<MovieEntity>> = catalogueRepository.getFavoriteMovies()
+    fun getFavoriteMovies(): LiveData<PagedList<MovieEntity>> = catalogueRepository.getFavoriteMovies()
 
     var movieDetail: LiveData<MovieEntity> = Transformations.switchMap(movieId) { mMovieId ->
         catalogueRepository.getMovieById(mMovieId)

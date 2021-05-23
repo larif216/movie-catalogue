@@ -44,7 +44,8 @@ class MovieFragment : Fragment(), MovieClickListener {
                         Status.LOADING -> binding.progressBar.visibility = View.VISIBLE
                         Status.SUCCESS -> {
                             binding.progressBar.visibility = View.GONE
-                            val movieListAdapter = MovieListAdapter(it.data!!, this)
+                            val movieListAdapter = MovieListAdapter(this)
+                            movieListAdapter.submitList(it.data)
                             movieListAdapter.notifyDataSetChanged()
 
                             with(binding.rvMovies) {
@@ -63,9 +64,9 @@ class MovieFragment : Fragment(), MovieClickListener {
         }
     }
 
-    override fun onItemClicked(catalogue: MovieEntity) {
+    override fun onItemClicked(catalogue: MovieEntity?) {
         val intent = Intent(context, DetailActivity::class.java)
-        intent.putExtra("id", catalogue.id)
+        intent.putExtra("id", catalogue?.id)
         intent.putExtra("type", 0)
         startActivity(intent)
     }

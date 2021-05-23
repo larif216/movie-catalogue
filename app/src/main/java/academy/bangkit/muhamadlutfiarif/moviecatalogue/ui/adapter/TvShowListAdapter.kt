@@ -6,14 +6,27 @@ import academy.bangkit.muhamadlutfiarif.moviecatalogue.databinding.ItemsCatalogu
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.ui.adapter.TvShowListAdapter.TvShowViewHolder
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
 class TvShowListAdapter(
-        private val listItems: List<TvShowEntity>,
         private val listener: TvShowClickListener
-): RecyclerView.Adapter<TvShowViewHolder>() {
+): PagedListAdapter<TvShowEntity, TvShowListAdapter.TvShowViewHolder>(DIFF_CALLBACK) {
+
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<TvShowEntity>() {
+            override fun areItemsTheSame(oldItem: TvShowEntity, newItem: TvShowEntity): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areContentsTheSame(oldItem: TvShowEntity, newItem: TvShowEntity): Boolean {
+                return oldItem == newItem
+            }
+        }
+    }
 
     inner class TvShowViewHolder(private val binding: ItemsCatalogueBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(catalogue: TvShowEntity) {
@@ -27,7 +40,7 @@ class TvShowListAdapter(
                         .into(binding.imgItemPoster)
 
                 itemView.setOnClickListener {
-                    listener.onItemClicked(listItems[position])
+                    listener.onItemClicked(getItem(position))
                 }
             }
         }
@@ -39,15 +52,13 @@ class TvShowListAdapter(
     }
 
     override fun onBindViewHolder(holder: TvShowViewHolder, position: Int) {
-        val item = listItems[position]
-        holder.bind(item)
-    }
-
-    override fun getItemCount(): Int {
-        return listItems.size
+        val item = getItem(position)
+        if (item != null) {
+            holder.bind(item)
+        }
     }
 }
 
 interface TvShowClickListener {
-    fun onItemClicked(catalogue: TvShowEntity)
+    fun onItemClicked(catalogue: TvShowEntity?)
 }

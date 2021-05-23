@@ -5,14 +5,27 @@ import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.local.entity.
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.databinding.ItemsCatalogueBinding
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
 class MovieListAdapter(
-        private val listItems: List<MovieEntity>,
         private val listener: MovieClickListener
-): RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>() {
+): PagedListAdapter<MovieEntity, MovieListAdapter.MovieViewHolder>(DIFF_CALLBACK) {
+
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<MovieEntity>() {
+            override fun areItemsTheSame(oldItem: MovieEntity, newItem: MovieEntity): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areContentsTheSame(oldItem: MovieEntity, newItem: MovieEntity): Boolean {
+                return oldItem == newItem
+            }
+        }
+    }
 
     inner class MovieViewHolder(private val binding: ItemsCatalogueBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(catalogue: MovieEntity) {
@@ -26,7 +39,7 @@ class MovieListAdapter(
                     .into(binding.imgItemPoster)
 
                 itemView.setOnClickListener {
-                    listener.onItemClicked(listItems[position])
+                    listener.onItemClicked(getItem(position))
                 }
             }
         }
@@ -38,15 +51,13 @@ class MovieListAdapter(
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        val item = listItems[position]
-        holder.bind(item)
-    }
-
-    override fun getItemCount(): Int {
-        return listItems.size
+        val item = getItem(position)
+        if (item != null) {
+            holder.bind(item)
+        }
     }
 }
 
 interface MovieClickListener {
-    fun onItemClicked(catalogue: MovieEntity)
+    fun onItemClicked(catalogue: MovieEntity?)
 }

@@ -4,16 +4,17 @@ import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.local.entity.
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.local.entity.TvShowEntity
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.vo.Resource
 import androidx.lifecycle.LiveData
+import androidx.paging.PagedList
 
 interface CatalogueDataSource {
 
-    fun getMovies(): LiveData<Resource<List<MovieEntity>>>
+    fun getMovies(): LiveData<Resource<PagedList<MovieEntity>>>
 
-    fun getTvShows(): LiveData<Resource<List<TvShowEntity>>>
+    fun getTvShows(): LiveData<Resource<PagedList<TvShowEntity>>>
 
-    fun getFavoriteMovies(): LiveData<List<MovieEntity>>
+    fun getFavoriteMovies(): LiveData<PagedList<MovieEntity>>
 
-    fun getFavoriteTvShows(): LiveData<List<TvShowEntity>>
+    fun getFavoriteTvShows(): LiveData<PagedList<TvShowEntity>>
 
     fun getMovieById(id: Int): LiveData<MovieEntity>
 
