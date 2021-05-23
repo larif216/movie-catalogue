@@ -1,5 +1,6 @@
 package academy.bangkit.muhamadlutfiarif.moviecatalogue.data
 
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.CatalogueDataSource
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.local.LocalDataSource
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.local.entity.MovieEntity
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.local.entity.TvShowEntity
@@ -14,21 +15,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 
-class CatalogueRepository private constructor(
+class FakeCatalogueRepository constructor(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource,
     private val appExecutors: AppExecutors
     ) : CatalogueDataSource {
-
-    companion object {
-        @Volatile
-        private var instance: CatalogueRepository? = null
-
-        fun getInstance(remoteData: RemoteDataSource, localData: LocalDataSource, appExecutors: AppExecutors): CatalogueRepository =
-                instance ?: synchronized(this) {
-                    instance ?: CatalogueRepository(remoteData, localData, appExecutors).apply { instance = this }
-                }
-    }
 
     override fun getMovies(): LiveData<Resource<PagedList<MovieEntity>>> {
         return object : NetworkBoundResource<PagedList<MovieEntity>, List<MovieResponse>>(appExecutors) {

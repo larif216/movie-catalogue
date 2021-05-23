@@ -13,7 +13,7 @@ class MovieViewModel(private val catalogueRepository: CatalogueRepository): View
 
     private val movieId = MutableLiveData<Int>()
 
-    fun selectedMovie(id: Int) {
+    fun setSelectedMovie(id: Int) {
         movieId.value = id
     }
 
@@ -26,7 +26,10 @@ class MovieViewModel(private val catalogueRepository: CatalogueRepository): View
     }
 
     fun setFavorite() {
-        val newState = !movieDetail.value!!.isFavorite
-        catalogueRepository.setFavoriteMovie(movieDetail.value!!, newState)
+        val movieEntity = movieDetail.value
+        if (movieEntity != null) {
+            val newState = !movieEntity.isFavorite
+            catalogueRepository.setFavoriteMovie(movieEntity, newState)
+        }
     }
 }

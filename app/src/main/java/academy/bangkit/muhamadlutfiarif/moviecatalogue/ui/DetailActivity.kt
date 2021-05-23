@@ -7,7 +7,6 @@ import academy.bangkit.muhamadlutfiarif.moviecatalogue.ui.home.tvshow.TvShowView
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.viewmodel.ViewModelFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.core.app.ShareCompat
@@ -36,7 +35,7 @@ class DetailActivity : AppCompatActivity() {
 
         if (catalogueType == 0) {
             movieViewModel = ViewModelProvider(this, factory)[MovieViewModel::class.java]
-            movieViewModel.selectedMovie(catalogueId)
+            movieViewModel.setSelectedMovie(catalogueId)
 
             movieViewModel.movieDetail.observe(this, { movie ->
                 with(binding) {
@@ -65,7 +64,7 @@ class DetailActivity : AppCompatActivity() {
             })
         } else {
             tvShowViewModel = ViewModelProvider(this, factory)[TvShowViewModel::class.java]
-            tvShowViewModel.selectedTvShow(catalogueId)
+            tvShowViewModel.setSelectedTvShow(catalogueId)
 
             tvShowViewModel.tvShowDetail.observe(this, { tvShow ->
                 with(binding) {
@@ -104,13 +103,11 @@ class DetailActivity : AppCompatActivity() {
         if (catalogueType == 0) {
             movieViewModel.movieDetail.observe(this, {
                 val state = it.isFavorite
-                Log.d("mvState", state.toString())
                 setFavoriteState(state)
             })
         } else {
             tvShowViewModel.tvShowDetail.observe(this, {
                 val state = it.isFavorite
-                Log.d("tvState", state.toString())
                 setFavoriteState(state)
             })
         }

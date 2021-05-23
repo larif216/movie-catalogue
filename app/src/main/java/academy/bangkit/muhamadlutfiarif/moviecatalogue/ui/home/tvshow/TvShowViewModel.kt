@@ -13,7 +13,7 @@ class TvShowViewModel(private val catalogueRepository: CatalogueRepository): Vie
 
     private val tvShowId = MutableLiveData<Int>()
 
-    fun selectedTvShow(id: Int) {
+    fun setSelectedTvShow(id: Int) {
         tvShowId.value = id
     }
 
@@ -26,7 +26,10 @@ class TvShowViewModel(private val catalogueRepository: CatalogueRepository): Vie
     }
 
     fun setFavorite() {
-        val newState = !tvShowDetail.value!!.isFavorite
-        catalogueRepository.setFavoriteTvShow(tvShowDetail.value!!, newState)
+        val tvShowEntity = tvShowDetail.value
+        if (tvShowEntity != null) {
+            val newState = !tvShowEntity.isFavorite
+            catalogueRepository.setFavoriteTvShow(tvShowEntity, newState)
+        }
     }
 }
