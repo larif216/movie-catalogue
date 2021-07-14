@@ -4,6 +4,7 @@ import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.data.source.local.en
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.data.source.local.entity.TvShowEntity
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.data.source.local.room.CatalogueDao
 import androidx.lifecycle.LiveData
+import io.reactivex.Flowable
 
 class LocalDataSource private constructor(private val mCatalogueDao: CatalogueDao) {
 
@@ -14,17 +15,17 @@ class LocalDataSource private constructor(private val mCatalogueDao: CatalogueDa
             INSTANCE ?: LocalDataSource(catalogueDao)
     }
 
-    fun getMovies(): LiveData<List<MovieEntity>> = mCatalogueDao.getMovies()
+    fun getMovies(): Flowable<List<MovieEntity>> = mCatalogueDao.getMovies()
 
-    fun getTvShows(): LiveData<List<TvShowEntity>> = mCatalogueDao.getTvShows()
+    fun getTvShows(): Flowable<List<TvShowEntity>> = mCatalogueDao.getTvShows()
 
-    fun getFavoriteMovies(): LiveData<List<MovieEntity>> = mCatalogueDao.getFavoriteMovies()
+    fun getFavoriteMovies(): Flowable<List<MovieEntity>> = mCatalogueDao.getFavoriteMovies()
 
-    fun getFavoriteTvShows(): LiveData<List<TvShowEntity>> = mCatalogueDao.getFavoriteTvShows()
+    fun getFavoriteTvShows(): Flowable<List<TvShowEntity>> = mCatalogueDao.getFavoriteTvShows()
 
-    fun getMovieById(id: Int): LiveData<MovieEntity> = mCatalogueDao.getMovieById(id)
+    fun getMovieById(id: Int): Flowable<MovieEntity> = mCatalogueDao.getMovieById(id)
 
-    fun getTvShowById(id: Int): LiveData<TvShowEntity> = mCatalogueDao.getTvShowById(id)
+    fun getTvShowById(id: Int): Flowable<TvShowEntity> = mCatalogueDao.getTvShowById(id)
 
     fun insertMovies(movies: List<MovieEntity>) = mCatalogueDao.insertMovies(movies)
 

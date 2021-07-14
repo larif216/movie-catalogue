@@ -13,6 +13,9 @@ import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.utils.DataMapper
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.utils.vo.Resource
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
+import io.reactivex.Flowable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 class CatalogueRepository private constructor(
     private val remoteDataSource: RemoteDataSource,
@@ -30,74 +33,68 @@ class CatalogueRepository private constructor(
                 }
     }
 
-    override fun getMovies(): LiveData<Resource<List<Movie>>> {
+    override fun getMovies(): Flowable<Resource<List<Movie>>> {
         return object : NetworkBoundResource<List<Movie>, List<MovieResponse>>(appExecutors) {
-            public override fun loadFromDB(): LiveData<List<Movie>> {
-                return Transformations.map(localDataSource.getMovies()) {
-                    DataMapper.mapMovieEntitiesToDomain(it)
-                }
+            public override fun loadFromDB(): Flowable<List<Movie>> {
+                return localDataSource.getMovies().map { DataMapper.mapMovieEntitiesToDomain(it) }
             }
 
             override fun shouldFetch(data: List<Movie>?): Boolean {
                 return data == null || data.isEmpty()
             }
 
-            public override fun createCall(): LiveData<ApiResponse<List<MovieResponse>>> {
+            public override fun createCall(): Flowable<ApiResponse<List<MovieResponse>>> {
                 return remoteDataSource.getMovies()
             }
 
             public override fun saveCallResult(data: List<MovieResponse>) {
                 val movieList = DataMapper.mapMovieResponseToEntities(data)
                 localDataSource.insertMovies(movieList)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe()
             }
-        }.asLiveData()
+        }.asFlowable()
     }
 
-    override fun getTvShows(): LiveData<Resource<List<TvShow>>> {
+    override fun getTvShows(): Flowable<Resource<List<TvShow>>> {
         return object : NetworkBoundResource<List<TvShow>, List<TvShowResponse>>(appExecutors) {
-            public override fun loadFromDB(): LiveData<List<TvShow>> {
-                return Transformations.map(localDataSource.getTvShows()) {
-                    DataMapper.mapTvShowEntitiesToDomain(it)
-                }
+            public override fun loadFromDB(): Flowable<List<TvShow>> {
+                return localDataSource.getTvShows().map { DataMapper.mapTvShowEntitiesToDomain(it) }
             }
 
             override fun shouldFetch(data: List<TvShow>?): Boolean {
                 return data == null || data.isEmpty()
             }
 
-            public override fun createCall(): LiveData<ApiResponse<List<TvShowResponse>>> {
+            public override fun createCall(): Flowable<ApiResponse<List<TvShowResponse>>> {
                 return remoteDataSource.getTvShows()
             }
 
             public override fun saveCallResult(data: List<TvShowResponse>) {
                 val tvShowList = DataMapper.mapTvShowResponseToEntities(data)
                 localDataSource.insertTvShows(tvShowList)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe()
             }
-        }.asLiveData()
+        }.asFlowable()
     }
 
-    override fun getFavoriteMovies(): LiveData<List<Movie>> {
-        return Transformations.map(localDataSource.getFavoriteMovies()) {
-            DataMapper.mapMovieEntitiesToDomain(it)
-        }
+    override fun getFavoriteMovies(): Flowable<List<Movie>> {
+        return localDataSource.getFavoriteMovies().map { DataMapper.mapMovieEntitiesToDomain(it) }
     }
 
-    override fun getFavoriteTvShows(): LiveData<List<TvShow>> {
-        return Transformations.map(localDataSource.getFavoriteTvShows()) {
-            DataMapper.mapTvShowEntitiesToDomain(it)
-        }
+    override fun getFavoriteTvShows(): Flowable<List<TvShow>> {
+        return localDataSource.getFavoriteTvShows().map { DataMapper.mapTvShowEntitiesToDomain(it) }
     }
 
-    override fun getMovieById(id: Int): LiveData<Movie> {
-        return Transformations.map(localDataSource.getMovieById(id)) {
-            DataMapper.mapMovieEntityToDomain(it)
-        }
+    override fun getMovieById(id: Int): Flowable<Movie> {
+        return localDataSource.getMovieById(id).map { DataMapper.mapMovieEntityToDomain(it) }
     }
 
-    override fun getTvShowById(id: Int): LiveData<TvShow> {
-        return Transformations.map(localDataSource.getTvShowById(id)) {
-            DataMapper.mapTvShowEntityToDomain(it)
-        }
+    override fun getTvShowById(id: Int): Flowable<TvShow> {
+        return localDataSource.getTvShowById(id).map { DataMapper.mapTvShowEntityToDomain(it) }
     }
 
     override fun setFavoriteMovie(movie: Movie, newState: Boolean) {

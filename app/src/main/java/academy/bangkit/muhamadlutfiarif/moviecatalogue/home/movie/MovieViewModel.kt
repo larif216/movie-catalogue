@@ -1,12 +1,7 @@
 package academy.bangkit.muhamadlutfiarif.moviecatalogue.home.movie
 
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.domain.model.Movie
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.domain.usecase.CatalogueUseCase
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.utils.vo.Resource
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 
 class MovieViewModel(private val catalogueUseCase: CatalogueUseCase): ViewModel() {
 
@@ -16,12 +11,12 @@ class MovieViewModel(private val catalogueUseCase: CatalogueUseCase): ViewModel(
         movieId.value = id
     }
 
-    fun getMovies(): LiveData<Resource<List<Movie>>> = catalogueUseCase.getMovies()
+    fun getMovies() = LiveDataReactiveStreams.fromPublisher(catalogueUseCase.getMovies())
 
-    fun getFavoriteMovies(): LiveData<List<Movie>> = catalogueUseCase.getFavoriteMovies()
+    fun getFavoriteMovies() = LiveDataReactiveStreams.fromPublisher(catalogueUseCase.getFavoriteMovies())
 
-    var movieDetail: LiveData<Movie> = Transformations.switchMap(movieId) { mMovieId ->
-        catalogueUseCase.getMovieById(mMovieId)
+    var movieDetail = Transformations.switchMap(movieId) { mMovieId ->
+        LiveDataReactiveStreams.fromPublisher(catalogueUseCase.getMovieById(mMovieId))
     }
 
     fun setFavorite() {

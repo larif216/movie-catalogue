@@ -1,12 +1,7 @@
 package academy.bangkit.muhamadlutfiarif.moviecatalogue.home.tvshow
 
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.domain.model.TvShow
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.domain.usecase.CatalogueUseCase
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.utils.vo.Resource
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 
 class TvShowViewModel(private val catalogueUseCase: CatalogueUseCase): ViewModel() {
 
@@ -16,12 +11,12 @@ class TvShowViewModel(private val catalogueUseCase: CatalogueUseCase): ViewModel
         tvShowId.value = id
     }
 
-    fun getTvShows(): LiveData<Resource<List<TvShow>>> = catalogueUseCase.getTvShows()
+    fun getTvShows() = LiveDataReactiveStreams.fromPublisher(catalogueUseCase.getTvShows())
 
-    fun getFavoriteTvShows(): LiveData<List<TvShow>> = catalogueUseCase.getFavoriteTvShows()
+    fun getFavoriteTvShows() = LiveDataReactiveStreams.fromPublisher(catalogueUseCase.getFavoriteTvShows())
 
-    var tvShowDetail: LiveData<TvShow> = Transformations.switchMap(tvShowId) { mTvShowId ->
-        catalogueUseCase.getTvShowById(mTvShowId)
+    var tvShowDetail = Transformations.switchMap(tvShowId) { mTvShowId ->
+        LiveDataReactiveStreams.fromPublisher(catalogueUseCase.getTvShowById(mTvShowId))
     }
 
     fun setFavorite() {

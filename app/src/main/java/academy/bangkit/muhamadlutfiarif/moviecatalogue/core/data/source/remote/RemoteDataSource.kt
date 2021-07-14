@@ -13,6 +13,11 @@ import android.os.Looper
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import io.reactivex.BackpressureStrategy
+import io.reactivex.Flowable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import io.reactivex.subjects.PublishSubject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -34,43 +39,37 @@ class RemoteDataSource private constructor(private val apiService: ApiService) {
                 }
     }
 
-    fun getMovies(): LiveData<ApiResponse<List<MovieResponse>>> {
-        val resultMovies = MutableLiveData<ApiResponse<List<MovieResponse>>>()
+    fun getMovies(): Flowable<ApiResponse<List<MovieResponse>>> {
+        val resultMovies = PublishSubject.create<ApiResponse<List<MovieResponse>>>()
         val client = apiService.getMovies(API_KEY)
-        client.enqueue(object : Callback<MovieListResponse> {
-            override fun onResponse(
-                call: Call<MovieListResponse>,
-                response: Response<MovieListResponse>
-            ) {
-                val dataArray = response.body()?.movies
-                resultMovies.value = if (dataArray != null) ApiResponse.Success(dataArray) else ApiResponse.Empty
-            }
-
-            override fun onFailure(call: Call<MovieListResponse>, t: Throwable) {
-                resultMovies.value = ApiResponse.Error(t.message.toString())
-                Log.e("RemoteDataSource", t.message.toString())
-            }
-        })
-        return resultMovies
+        client
+            .subscribeOn(Schedulers.computation())
+            .observeOn(AndroidSchedulers.mainThread())
+            .take(1)
+            .subscribe({ response ->
+                val dataArray = response.movies
+                resultMovies.onNext(if (dataArray.isNotEmpty()) ApiResponse.Success(dataArray) else ApiResponse.Empty)
+            }, { error ->
+                resultMovies.onNext(ApiResponse.Error(error.message.toString()))
+                Log.e("RemoteDataSource", error.toString())
+            })
+        return resultMovies.toFlowable(BackpressureStrategy.BUFFER)
     }
 
-    fun getTvShows(): LiveData<ApiResponse<List<TvShowResponse>>> {
-        val resultTvShows = MutableLiveData<ApiResponse<List<TvShowResponse>>>()
+    fun getTvShows(): Flowable<ApiResponse<List<TvShowResponse>>> {
+        val resultTvShows = PublishSubject.create<ApiResponse<List<TvShowResponse>>>()
         val client = apiService.getTvShows(API_KEY)
-        client.enqueue(object : Callback<TvShowListResponse> {
-            override fun onResponse(
-                call: Call<TvShowListResponse>,
-                response: Response<TvShowListResponse>
-            ) {
-                val dataArray = response.body()?.tvShows
-                resultTvShows.value = if (dataArray != null) ApiResponse.Success(dataArray) else ApiResponse.Empty
-            }
-
-            override fun onFailure(call: Call<TvShowListResponse>, t: Throwable) {
-                resultTvShows.value = ApiResponse.Error(t.message.toString())
-                Log.e("RemoteDataSource", t.message.toString())
-            }
-        })
-        return resultTvShows
+        client
+            .subscribeOn(Schedulers.computation())
+            .observeOn(AndroidSchedulers.mainThread())
+            .take(1)
+            .subscribe({ response ->
+                val dataArray = response.tvShows
+                resultTvShows.onNext(if (dataArray.isNotEmpty()) ApiResponse.Success(dataArray) else ApiResponse.Empty)
+            }, { error ->
+                resultTvShows.onNext(ApiResponse.Error(error.message.toString()))
+                Log.e("RemoteDataSource", error.toString())
+            })
+        return resultTvShows.toFlowable(BackpressureStrategy.BUFFER)
     }
 }

@@ -4,20 +4,21 @@ import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.domain.model.Movie
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.domain.model.TvShow
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.utils.vo.Resource
 import androidx.lifecycle.LiveData
+import io.reactivex.Flowable
 
 interface CatalogueUseCase {
 
-    fun getMovies(): LiveData<Resource<List<Movie>>>
+    fun getMovies(): Flowable<Resource<List<Movie>>>
 
-    fun getTvShows(): LiveData<Resource<List<TvShow>>>
+    fun getTvShows(): Flowable<Resource<List<TvShow>>>
 
-    fun getFavoriteMovies(): LiveData<List<Movie>>
+    fun getFavoriteMovies(): Flowable<List<Movie>>
 
-    fun getFavoriteTvShows(): LiveData<List<TvShow>>
+    fun getFavoriteTvShows(): Flowable<List<TvShow>>
 
-    fun getMovieById(id: Int): LiveData<Movie>
+    fun getMovieById(id: Int): Flowable<Movie>
 
-    fun getTvShowById(id: Int): LiveData<TvShow>
+    fun getTvShowById(id: Int): Flowable<TvShow>
 
     fun setFavoriteMovie(movie: Movie, newState: Boolean)
 
