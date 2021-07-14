@@ -85,7 +85,7 @@ class CatalogueRepository private constructor(
     }
 
     override fun getFavoriteTvShows(): LiveData<List<TvShow>> {
-        return Transformations.map(localDataSource.getTvShows()) {
+        return Transformations.map(localDataSource.getFavoriteTvShows()) {
             DataMapper.mapTvShowEntitiesToDomain(it)
         }
     }
