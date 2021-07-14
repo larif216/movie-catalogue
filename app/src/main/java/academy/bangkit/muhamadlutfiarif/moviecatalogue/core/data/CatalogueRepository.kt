@@ -9,6 +9,7 @@ import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.data.source.remote.r
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.data.source.remote.response.TvShowResponse
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.domain.model.Movie
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.domain.model.TvShow
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.domain.repository.ICatalogueRepository
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.utils.AppExecutors
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.utils.DataMapper
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.utils.vo.Resource
@@ -19,7 +20,7 @@ class CatalogueRepository private constructor(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource,
     private val appExecutors: AppExecutors
-    ) : CatalogueDataSource {
+    ) : ICatalogueRepository {
 
     companion object {
         @Volatile
