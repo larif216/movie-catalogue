@@ -4,7 +4,6 @@ import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.data.source.local.en
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.data.source.local.entity.TvShowEntity
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.data.source.local.room.CatalogueDao
 import androidx.lifecycle.LiveData
-import androidx.paging.DataSource
 
 class LocalDataSource private constructor(private val mCatalogueDao: CatalogueDao) {
 
@@ -15,13 +14,13 @@ class LocalDataSource private constructor(private val mCatalogueDao: CatalogueDa
             INSTANCE ?: LocalDataSource(catalogueDao)
     }
 
-    fun getMovies(): DataSource.Factory<Int, MovieEntity> = mCatalogueDao.getMovies()
+    fun getMovies(): LiveData<List<MovieEntity>> = mCatalogueDao.getMovies()
 
-    fun getTvShows(): DataSource.Factory<Int, TvShowEntity> = mCatalogueDao.getTvShows()
+    fun getTvShows(): LiveData<List<TvShowEntity>> = mCatalogueDao.getTvShows()
 
-    fun getFavoriteMovies(): DataSource.Factory<Int, MovieEntity> = mCatalogueDao.getFavoriteMovies()
+    fun getFavoriteMovies(): LiveData<List<MovieEntity>> = mCatalogueDao.getFavoriteMovies()
 
-    fun getFavoriteTvShows(): DataSource.Factory<Int, TvShowEntity> = mCatalogueDao.getFavoriteTvShows()
+    fun getFavoriteTvShows(): LiveData<List<TvShowEntity>> = mCatalogueDao.getFavoriteTvShows()
 
     fun getMovieById(id: Int): LiveData<MovieEntity> = mCatalogueDao.getMovieById(id)
 

@@ -2,12 +2,12 @@ package academy.bangkit.muhamadlutfiarif.moviecatalogue.home.movie
 
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.data.CatalogueRepository
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.data.source.local.entity.MovieEntity
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.domain.model.Movie
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.utils.vo.Resource
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import androidx.paging.PagedList
 
 class MovieViewModel(private val catalogueRepository: CatalogueRepository): ViewModel() {
 
@@ -17,19 +17,19 @@ class MovieViewModel(private val catalogueRepository: CatalogueRepository): View
         movieId.value = id
     }
 
-    fun getMovies(): LiveData<Resource<PagedList<MovieEntity>>> = catalogueRepository.getMovies()
+    fun getMovies(): LiveData<Resource<List<Movie>>> = catalogueRepository.getMovies()
 
-    fun getFavoriteMovies(): LiveData<PagedList<MovieEntity>> = catalogueRepository.getFavoriteMovies()
+    fun getFavoriteMovies(): LiveData<List<Movie>> = catalogueRepository.getFavoriteMovies()
 
-    var movieDetail: LiveData<MovieEntity> = Transformations.switchMap(movieId) { mMovieId ->
+    var movieDetail: LiveData<Movie> = Transformations.switchMap(movieId) { mMovieId ->
         catalogueRepository.getMovieById(mMovieId)
     }
 
     fun setFavorite() {
-        val movieEntity = movieDetail.value
-        if (movieEntity != null) {
-            val newState = !movieEntity.isFavorite
-            catalogueRepository.setFavoriteMovie(movieEntity, newState)
+        val movie = movieDetail.value
+        if (movie != null) {
+            val newState = !movie.isFavorite
+            catalogueRepository.setFavoriteMovie(movie, newState)
         }
     }
 }

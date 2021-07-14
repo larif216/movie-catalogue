@@ -1,34 +1,30 @@
 package academy.bangkit.muhamadlutfiarif.moviecatalogue.core.ui.adapter
 
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.R
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.data.source.local.entity.MovieEntity
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.domain.model.Movie
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.databinding.ItemsCatalogueBinding
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.paging.PagedListAdapter
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
 class MovieListAdapter(
-        private val listener: MovieClickListener
-): PagedListAdapter<MovieEntity, MovieListAdapter.MovieViewHolder>(DIFF_CALLBACK) {
+    private val listener: MovieClickListener
+): RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>() {
 
-    companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<MovieEntity>() {
-            override fun areItemsTheSame(oldItem: MovieEntity, newItem: MovieEntity): Boolean {
-                return oldItem.id == newItem.id
-            }
+    private val listData = ArrayList<Movie>()
+    var onItemClick: ((Movie) -> Unit)? = null
 
-            override fun areContentsTheSame(oldItem: MovieEntity, newItem: MovieEntity): Boolean {
-                return oldItem == newItem
-            }
-        }
+    fun setData(newListData: List<Movie>?) {
+        if (newListData == null) return
+        listData.clear()
+        listData.addAll(newListData)
+        notifyDataSetChanged()
     }
 
     inner class MovieViewHolder(private val binding: ItemsCatalogueBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(catalogue: MovieEntity) {
+        fun bind(catalogue: Movie) {
             with(binding) {
                 tvItemTitle.text = catalogue.title
                 tvItemDate.text = catalogue.releaseDate
@@ -39,7 +35,7 @@ class MovieListAdapter(
                     .into(binding.imgItemPoster)
 
                 itemView.setOnClickListener {
-                    listener.onItemClicked(getItem(position))
+                    listener.onItemClicked(listData[adapterPosition])
                 }
             }
         }
@@ -51,13 +47,15 @@ class MovieListAdapter(
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        val item = getItem(position)
+        val item = listData[position]
         if (item != null) {
             holder.bind(item)
         }
     }
+
+    override fun getItemCount() = listData.size
 }
 
 interface MovieClickListener {
-    fun onItemClicked(catalogue: MovieEntity?)
+    fun onItemClicked(catalogue: Movie?)
 }

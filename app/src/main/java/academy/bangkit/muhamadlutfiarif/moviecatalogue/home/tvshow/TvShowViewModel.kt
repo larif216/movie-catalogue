@@ -1,13 +1,12 @@
 package academy.bangkit.muhamadlutfiarif.moviecatalogue.home.tvshow
 
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.data.CatalogueRepository
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.data.source.local.entity.TvShowEntity
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.domain.model.TvShow
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.utils.vo.Resource
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import androidx.paging.PagedList
 
 class TvShowViewModel(private val catalogueRepository: CatalogueRepository): ViewModel() {
 
@@ -17,19 +16,19 @@ class TvShowViewModel(private val catalogueRepository: CatalogueRepository): Vie
         tvShowId.value = id
     }
 
-    fun getTvShows(): LiveData<Resource<PagedList<TvShowEntity>>> = catalogueRepository.getTvShows()
+    fun getTvShows(): LiveData<Resource<List<TvShow>>> = catalogueRepository.getTvShows()
 
-    fun getFavoriteTvShows(): LiveData<PagedList<TvShowEntity>> = catalogueRepository.getFavoriteTvShows()
+    fun getFavoriteTvShows(): LiveData<List<TvShow>> = catalogueRepository.getFavoriteTvShows()
 
-    var tvShowDetail: LiveData<TvShowEntity> = Transformations.switchMap(tvShowId) { mTvShowId ->
+    var tvShowDetail: LiveData<TvShow> = Transformations.switchMap(tvShowId) { mTvShowId ->
         catalogueRepository.getTvShowById(mTvShowId)
     }
 
     fun setFavorite() {
-        val tvShowEntity = tvShowDetail.value
-        if (tvShowEntity != null) {
-            val newState = !tvShowEntity.isFavorite
-            catalogueRepository.setFavoriteTvShow(tvShowEntity, newState)
+        val tvShow = tvShowDetail.value
+        if (tvShow != null) {
+            val newState = !tvShow.isFavorite
+            catalogueRepository.setFavoriteTvShow(tvShow, newState)
         }
     }
 }

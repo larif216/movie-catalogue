@@ -1,34 +1,30 @@
 package academy.bangkit.muhamadlutfiarif.moviecatalogue.core.ui.adapter
 
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.R
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.data.source.local.entity.TvShowEntity
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.domain.model.TvShow
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.databinding.ItemsCatalogueBinding
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.paging.PagedListAdapter
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
 class TvShowListAdapter(
-        private val listener: TvShowClickListener
-): PagedListAdapter<TvShowEntity, TvShowListAdapter.TvShowViewHolder>(DIFF_CALLBACK) {
+    private val listener: TvShowClickListener
+): RecyclerView.Adapter<TvShowListAdapter.TvShowViewHolder>() {
 
-    companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<TvShowEntity>() {
-            override fun areItemsTheSame(oldItem: TvShowEntity, newItem: TvShowEntity): Boolean {
-                return oldItem.id == newItem.id
-            }
+    private val listData = ArrayList<TvShow>()
+    var onItemClick: ((TvShow) -> Unit)? = null
 
-            override fun areContentsTheSame(oldItem: TvShowEntity, newItem: TvShowEntity): Boolean {
-                return oldItem == newItem
-            }
-        }
+    fun setData(newListData: List<TvShow>?) {
+        if (newListData == null) return
+        listData.clear()
+        listData.addAll(newListData)
+        notifyDataSetChanged()
     }
 
     inner class TvShowViewHolder(private val binding: ItemsCatalogueBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(catalogue: TvShowEntity) {
+        fun bind(catalogue: TvShow) {
             with(binding) {
                 tvItemTitle.text = catalogue.title
                 tvItemDate.text = catalogue.releaseDate
@@ -39,7 +35,7 @@ class TvShowListAdapter(
                         .into(binding.imgItemPoster)
 
                 itemView.setOnClickListener {
-                    listener.onItemClicked(getItem(position))
+                    listener.onItemClicked(listData[adapterPosition])
                 }
             }
         }
@@ -51,13 +47,15 @@ class TvShowListAdapter(
     }
 
     override fun onBindViewHolder(holder: TvShowViewHolder, position: Int) {
-        val item = getItem(position)
+        val item = listData[position]
         if (item != null) {
             holder.bind(item)
         }
     }
+
+    override fun getItemCount() = listData.size
 }
 
 interface TvShowClickListener {
-    fun onItemClicked(catalogue: TvShowEntity?)
+    fun onItemClicked(catalogue: TvShow?)
 }

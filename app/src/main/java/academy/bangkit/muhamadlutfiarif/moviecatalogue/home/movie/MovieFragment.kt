@@ -1,15 +1,15 @@
 package academy.bangkit.muhamadlutfiarif.moviecatalogue.home.movie
 
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.R
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.domain.model.Movie
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.ui.adapter.MovieClickListener
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.data.source.local.entity.MovieEntity
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.databinding.FragmentMovieBinding
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.detail.DetailActivity
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.ui.adapter.MovieClickListener
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.ui.adapter.MovieListAdapter
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.ui.viewmodel.ViewModelFactory
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.utils.vo.Status
@@ -34,6 +34,8 @@ class MovieFragment : Fragment(), MovieClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (activity != null) {
+            val movieListAdapter = MovieListAdapter(this)
+
             val factory = ViewModelFactory.getInstance(requireActivity())
             viewModel = ViewModelProvider(this, factory)[MovieViewModel::class.java]
 
@@ -43,9 +45,7 @@ class MovieFragment : Fragment(), MovieClickListener {
                         Status.LOADING -> binding.progressBar.visibility = View.VISIBLE
                         Status.SUCCESS -> {
                             binding.progressBar.visibility = View.GONE
-                            val movieListAdapter = MovieListAdapter(this)
-                            movieListAdapter.submitList(it.data)
-                            movieListAdapter.notifyDataSetChanged()
+                            movieListAdapter.setData(it.data)
 
                             with(binding.rvMovies) {
                                 layoutManager = LinearLayoutManager(context)
@@ -63,7 +63,7 @@ class MovieFragment : Fragment(), MovieClickListener {
         }
     }
 
-    override fun onItemClicked(catalogue: MovieEntity?) {
+    override fun onItemClicked(catalogue: Movie?) {
         val intent = Intent(context, DetailActivity::class.java)
         intent.putExtra("id", catalogue?.id)
         intent.putExtra("type", 0)
