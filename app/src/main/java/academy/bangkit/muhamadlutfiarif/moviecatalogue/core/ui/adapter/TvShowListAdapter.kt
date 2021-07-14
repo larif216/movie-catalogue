@@ -1,6 +1,7 @@
 package academy.bangkit.muhamadlutfiarif.moviecatalogue.core.ui.adapter
 
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.R
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.data.source.remote.RemoteDataSource
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.domain.model.TvShow
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.databinding.ItemsCatalogueBinding
 import android.view.LayoutInflater
@@ -30,7 +31,7 @@ class TvShowListAdapter(
                 tvItemDate.text = catalogue.releaseDate
                 tvItemUserScore.text = itemView.context.resources.getString(R.string.user_score, catalogue.userScore)
                 Glide.with(itemView.context)
-                        .load(itemView.context.resources.getIdentifier(catalogue.poster, "drawable", itemView.context.packageName))
+                        .load("${RemoteDataSource.IMAGE_DOMAIN}${catalogue.poster}")
                         .apply(RequestOptions().override(50, 75))
                         .into(binding.imgItemPoster)
 

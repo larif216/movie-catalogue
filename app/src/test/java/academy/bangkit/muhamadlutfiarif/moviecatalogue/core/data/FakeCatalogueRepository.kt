@@ -1,7 +1,7 @@
 package academy.bangkit.muhamadlutfiarif.moviecatalogue.core.data
 
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.data.source.local.LocalDataSource
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.data.source.remote.ApiResponse
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.data.source.remote.network.ApiResponse
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.data.source.remote.RemoteDataSource
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.data.source.remote.response.MovieResponse
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.data.source.remote.response.TvShowResponse

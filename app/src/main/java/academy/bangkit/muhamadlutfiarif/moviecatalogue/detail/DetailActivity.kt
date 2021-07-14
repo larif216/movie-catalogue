@@ -1,6 +1,7 @@
 package academy.bangkit.muhamadlutfiarif.moviecatalogue.detail
 
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.R
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.data.source.remote.RemoteDataSource
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.databinding.ActivityDetailBinding
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.home.movie.MovieViewModel
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.home.tvshow.TvShowViewModel
@@ -41,13 +42,11 @@ class DetailActivity : AppCompatActivity() {
                 with(binding) {
                     tvDetailTitle.text = movie.title
                     tvDetailReleaseDate.text = movie.releaseDate
-                    tvDetailDuration.text = movie.duration
                     tvDetailUserScore.text = movie.userScore
-                    tvDetailGenre.text = movie.genre
                     tvDetailOverview.text = movie.overview
 
                     Glide.with(applicationContext)
-                            .load(applicationContext.resources.getIdentifier(movie.poster, "drawable", applicationContext.packageName))
+                            .load("${RemoteDataSource.IMAGE_DOMAIN}${movie.poster}")
                             .apply(RequestOptions().override(160, 240))
                             .into(imgDetailPoster)
                 }
@@ -70,13 +69,11 @@ class DetailActivity : AppCompatActivity() {
                 with(binding) {
                     tvDetailTitle.text = tvShow.title
                     tvDetailReleaseDate.text = tvShow.releaseDate
-                    tvDetailDuration.text = tvShow.duration
                     tvDetailUserScore.text = tvShow.userScore
-                    tvDetailGenre.text = tvShow.genre
                     tvDetailOverview.text = tvShow.overview
 
                     Glide.with(applicationContext)
-                            .load(applicationContext.resources.getIdentifier(tvShow.poster, "drawable", applicationContext.packageName))
+                            .load("${RemoteDataSource.IMAGE_DOMAIN}${tvShow.poster}")
                             .apply(RequestOptions().override(160, 240))
                             .into(imgDetailPoster)
                 }

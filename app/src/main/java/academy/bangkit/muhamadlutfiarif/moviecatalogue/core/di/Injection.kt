@@ -4,6 +4,7 @@ import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.data.CatalogueReposi
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.data.source.local.LocalDataSource
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.data.source.local.room.CatalogueDatabase
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.data.source.remote.RemoteDataSource
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.data.source.remote.network.ApiConfig
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.domain.repository.ICatalogueRepository
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.domain.usecase.CatalogueInteractor
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.domain.usecase.CatalogueUseCase
@@ -16,7 +17,7 @@ object Injection {
 
         val database = CatalogueDatabase.getInstance(context)
 
-        val remoteDataSource = RemoteDataSource.getInstance(JsonHelper(context))
+        val remoteDataSource = RemoteDataSource.getInstance(ApiConfig.provideApiService())
         val localDataSource = LocalDataSource.getInstance(database.catalogueDao())
         val appExecutors = AppExecutors()
 

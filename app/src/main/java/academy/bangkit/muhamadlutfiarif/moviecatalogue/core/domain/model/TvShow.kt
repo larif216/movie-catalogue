@@ -8,10 +8,8 @@ data class TvShow(
     val id: Int,
     val title: String,
     val releaseDate: String,
-    val genre: String,
-    val duration: String,
     val userScore: String,
     val overview: String,
-    val poster: String,
+    val poster: String?,
     var isFavorite: Boolean = false
 ) : Parcelable

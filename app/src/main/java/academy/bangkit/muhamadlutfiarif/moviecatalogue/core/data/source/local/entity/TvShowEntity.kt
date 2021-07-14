@@ -19,12 +19,6 @@ data class TvShowEntity(
         @ColumnInfo(name = "release_date")
         val releaseDate: String,
 
-        @ColumnInfo(name = "genre")
-        val genre: String,
-
-        @ColumnInfo(name = "duration")
-        val duration: String,
-
         @ColumnInfo(name = "user_score")
         val userScore: String,
 
@@ -32,7 +26,7 @@ data class TvShowEntity(
         val overview: String,
 
         @ColumnInfo(name = "poster")
-        val poster: String,
+        val poster: String?,
 
         @ColumnInfo(name = "is_favorite")
         var isFavorite: Boolean = false

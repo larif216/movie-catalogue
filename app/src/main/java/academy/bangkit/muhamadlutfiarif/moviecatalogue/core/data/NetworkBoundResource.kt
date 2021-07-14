@@ -1,7 +1,6 @@
 package academy.bangkit.muhamadlutfiarif.moviecatalogue.core.data
 
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.data.source.remote.ApiResponse
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.data.source.remote.StatusResponse
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.data.source.remote.network.ApiResponse
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.utils.AppExecutors
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.utils.vo.Resource
 import androidx.lifecycle.LiveData
@@ -50,10 +49,10 @@ abstract class NetworkBoundResource<ResultType, RequestType>(private val mExecut
         result.addSource(apiResponse) { response ->
             result.removeSource(apiResponse)
             result.removeSource(dbSource)
-            when (response.status) {
-                StatusResponse.SUCCESS ->
+            when (response) {
+                is ApiResponse.Success ->
                     mExecutors.diskIO().execute {
-                        saveCallResult(response.body)
+                        saveCallResult(response.data)
                         mExecutors.mainThread().execute {
                             result.addSource(loadFromDB()) { newData ->
                                 result.value = Resource.success(newData)
@@ -61,16 +60,16 @@ abstract class NetworkBoundResource<ResultType, RequestType>(private val mExecut
                         }
                     }
 
-                StatusResponse.EMPTY -> mExecutors.mainThread().execute {
+                is ApiResponse.Empty -> mExecutors.mainThread().execute {
                     result.addSource(loadFromDB()) { newData ->
                         result.value = Resource.success(newData)
                     }
                 }
 
-                StatusResponse.ERROR -> {
+                is ApiResponse.Error -> {
                     onFetchFailed()
                     result.addSource(dbSource) { newData ->
-                        result.value = Resource.error(response.message, newData)
+                        result.value = Resource.error(response.errorMessage, newData)
                     }
                 }
             }

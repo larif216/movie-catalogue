@@ -45,4 +45,7 @@ ext {
 
     roomVersion = '2.2.3'
     roomRuntimeVersion = '2.2.5'
+
+    retrofit_version = "2.9.0"
+    logging_interceptor_version = "4.8.0"
 }
