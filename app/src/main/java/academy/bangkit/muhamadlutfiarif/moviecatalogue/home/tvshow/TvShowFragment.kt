@@ -1,5 +1,6 @@
 package academy.bangkit.muhamadlutfiarif.moviecatalogue.home.tvshow
 
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.MyApplication
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.R
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.domain.model.TvShow
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.ui.adapter.TvShowClickListener
@@ -13,15 +14,28 @@ import academy.bangkit.muhamadlutfiarif.moviecatalogue.detail.DetailActivity
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.ui.adapter.TvShowListAdapter
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.ui.viewmodel.ViewModelFactory
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.utils.vo.Status
+import android.content.Context
 import android.content.Intent
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import javax.inject.Inject
 
 class TvShowFragment : Fragment(), TvShowClickListener {
 
+    @Inject
+    lateinit var factory: ViewModelFactory
+
     private lateinit var binding: FragmentTvShowBinding
-    private lateinit var viewModel: TvShowViewModel
+
+    private val viewModel: TvShowViewModel by viewModels {
+        factory
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (requireActivity().application as MyApplication).appComponent.inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,10 +50,7 @@ class TvShowFragment : Fragment(), TvShowClickListener {
         if (activity != null) {
             val tvShowListAdapter = TvShowListAdapter(this)
 
-            val factory = ViewModelFactory.getInstance(requireActivity())
-            viewModel = ViewModelProvider(this, factory)[TvShowViewModel::class.java]
-
-            viewModel.getTvShows().observe(this, {
+            viewModel.getTvShows().observe(viewLifecycleOwner, {
                 if (it != null) {
                     when (it.status) {
                         Status.LOADING -> binding.progressBar.visibility = View.VISIBLE

@@ -3,17 +3,12 @@ package academy.bangkit.muhamadlutfiarif.moviecatalogue.core.data.source.local
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.data.source.local.entity.MovieEntity
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.data.source.local.entity.TvShowEntity
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.data.source.local.room.CatalogueDao
-import androidx.lifecycle.LiveData
 import io.reactivex.Flowable
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class LocalDataSource private constructor(private val mCatalogueDao: CatalogueDao) {
-
-    companion object {
-        private var INSTANCE: LocalDataSource? = null
-
-        fun getInstance(catalogueDao: CatalogueDao): LocalDataSource =
-            INSTANCE ?: LocalDataSource(catalogueDao)
-    }
+@Singleton
+class LocalDataSource @Inject constructor(private val mCatalogueDao: CatalogueDao) {
 
     fun getMovies(): Flowable<List<MovieEntity>> = mCatalogueDao.getMovies()
 

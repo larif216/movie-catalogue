@@ -12,21 +12,4 @@ import androidx.room.RoomDatabase
     exportSchema = false)
 abstract class CatalogueDatabase: RoomDatabase() {
     abstract fun catalogueDao(): CatalogueDao
-
-    companion object {
-
-        @Volatile
-        private var INSTANCE: CatalogueDatabase? = null
-
-        fun getInstance(context: Context): CatalogueDatabase =
-            INSTANCE ?: synchronized(this) {
-                Room.databaseBuilder(
-                    context.applicationContext,
-                    CatalogueDatabase::class.java,
-                    "Catalogue.db"
-                ).build().apply {
-                    INSTANCE = this
-                }
-            }
-    }
 }

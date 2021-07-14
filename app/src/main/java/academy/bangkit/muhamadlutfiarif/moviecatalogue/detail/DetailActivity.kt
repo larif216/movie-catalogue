@@ -1,5 +1,6 @@
 package academy.bangkit.muhamadlutfiarif.moviecatalogue.detail
 
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.MyApplication
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.R
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.data.source.remote.RemoteDataSource
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.databinding.ActivityDetailBinding
@@ -10,21 +11,33 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.core.app.ShareCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import javax.inject.Inject
 
 class DetailActivity : AppCompatActivity() {
 
+    @Inject
+    lateinit var factory: ViewModelFactory
+
     private lateinit var binding: ActivityDetailBinding
-    private lateinit var movieViewModel: MovieViewModel
-    private lateinit var tvShowViewModel: TvShowViewModel
+
+    private val movieViewModel: MovieViewModel by viewModels {
+        factory
+    }
+
+    private val tvShowViewModel: TvShowViewModel by viewModels {
+        factory
+    }
 
     private var menu: Menu? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        (application as MyApplication).appComponent.inject(this)
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -32,10 +45,7 @@ class DetailActivity : AppCompatActivity() {
         val catalogueId = intent.getIntExtra("id", 0)
         val catalogueType = intent.getIntExtra("type", 0)
 
-        val factory = ViewModelFactory.getInstance(this)
-
         if (catalogueType == 0) {
-            movieViewModel = ViewModelProvider(this, factory)[MovieViewModel::class.java]
             movieViewModel.setSelectedMovie(catalogueId)
 
             movieViewModel.movieDetail.observe(this, { movie ->
@@ -62,7 +72,6 @@ class DetailActivity : AppCompatActivity() {
                 }
             })
         } else {
-            tvShowViewModel = ViewModelProvider(this, factory)[TvShowViewModel::class.java]
             tvShowViewModel.setSelectedTvShow(catalogueId)
 
             tvShowViewModel.tvShowDetail.observe(this, { tvShow ->

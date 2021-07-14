@@ -3,8 +3,9 @@ package academy.bangkit.muhamadlutfiarif.moviecatalogue.core.domain.usecase
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.domain.model.Movie
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.domain.model.TvShow
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.domain.repository.ICatalogueRepository
+import javax.inject.Inject
 
-class CatalogueInteractor(private val catalogueRepository: ICatalogueRepository): CatalogueUseCase {
+class CatalogueInteractor @Inject constructor(private val catalogueRepository: ICatalogueRepository): CatalogueUseCase {
     override fun getMovies() = catalogueRepository.getMovies()
 
     override fun getTvShows() = catalogueRepository.getTvShows()

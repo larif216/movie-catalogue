@@ -21,22 +21,15 @@ import io.reactivex.subjects.PublishSubject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class RemoteDataSource private constructor(private val apiService: ApiService) {
-
-    private val handler = Handler(Looper.getMainLooper())
+@Singleton
+class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
 
     companion object {
         private const val API_KEY = "e1e356b84f47af3956862199b4b2b899"
         const val IMAGE_DOMAIN = "https://image.tmdb.org/t/p/w500/"
-
-        @Volatile
-        private var instance: RemoteDataSource? = null
-
-        fun getInstance(service: ApiService): RemoteDataSource =
-                instance ?: synchronized(this) {
-                    instance ?: RemoteDataSource(service).apply { instance = this }
-                }
     }
 
     fun getMovies(): Flowable<ApiResponse<List<MovieResponse>>> {

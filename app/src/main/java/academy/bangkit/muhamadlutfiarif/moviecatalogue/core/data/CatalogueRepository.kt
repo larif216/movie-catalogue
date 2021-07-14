@@ -11,27 +11,18 @@ import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.domain.repository.IC
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.utils.AppExecutors
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.utils.DataMapper
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.utils.vo.Resource
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class CatalogueRepository private constructor(
+@Singleton
+class CatalogueRepository @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource,
     private val appExecutors: AppExecutors
     ) : ICatalogueRepository {
-
-    companion object {
-        @Volatile
-        private var instance: CatalogueRepository? = null
-
-        fun getInstance(remoteData: RemoteDataSource, localData: LocalDataSource, appExecutors: AppExecutors): CatalogueRepository =
-                instance ?: synchronized(this) {
-                    instance ?: CatalogueRepository(remoteData, localData, appExecutors).apply { instance = this }
-                }
-    }
 
     override fun getMovies(): Flowable<Resource<List<Movie>>> {
         return object : NetworkBoundResource<List<Movie>, List<MovieResponse>>(appExecutors) {
