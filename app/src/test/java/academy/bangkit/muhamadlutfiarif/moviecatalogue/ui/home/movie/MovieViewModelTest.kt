@@ -1,9 +1,10 @@
 package academy.bangkit.muhamadlutfiarif.moviecatalogue.ui.home.movie
 
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.CatalogueRepository
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.local.entity.MovieEntity
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.utils.DataDummy
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.vo.Resource
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.data.CatalogueRepository
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.data.source.local.entity.MovieEntity
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.utils.DataDummy
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.utils.vo.Resource
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.home.movie.MovieViewModel
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer

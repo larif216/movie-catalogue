@@ -1,10 +1,10 @@
 package academy.bangkit.muhamadlutfiarif.moviecatalogue.ui.home.tvshow
 
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.CatalogueRepository
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.local.entity.MovieEntity
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.data.source.local.entity.TvShowEntity
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.utils.DataDummy
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.vo.Resource
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.data.CatalogueRepository
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.data.source.local.entity.TvShowEntity
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.utils.DataDummy
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.utils.vo.Resource
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.home.tvshow.TvShowViewModel
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer

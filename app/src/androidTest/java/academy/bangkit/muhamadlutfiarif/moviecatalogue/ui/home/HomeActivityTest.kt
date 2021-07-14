@@ -1,8 +1,9 @@
 package academy.bangkit.muhamadlutfiarif.moviecatalogue.ui.home
 
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.R
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.utils.DataDummy
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.utils.EspressoIdlingResource
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.utils.DataDummy
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.utils.EspressoIdlingResource
+import academy.bangkit.muhamadlutfiarif.moviecatalogue.home.HomeActivity
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView

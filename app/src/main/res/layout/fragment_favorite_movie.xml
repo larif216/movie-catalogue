@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorSecondary"
-    tools:context=".ui.favorite.movie.FavoriteMovieFragment">
+    tools:context=".favorite.movie.FavoriteMovieFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_movies"
