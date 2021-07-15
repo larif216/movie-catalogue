@@ -1,7 +1,7 @@
-package academy.bangkit.muhamadlutfiarif.moviecatalogue.favorite
+package academy.bangkit.muhamadlutfiarif.favorite
 
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.favorite.movie.FavoriteMovieFragment
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.favorite.tvshow.FavoriteTvShowFragment
+import academy.bangkit.muhamadlutfiarif.favorite.movie.FavoriteMovieFragment
+import academy.bangkit.muhamadlutfiarif.favorite.tvshow.FavoriteTvShowFragment
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter

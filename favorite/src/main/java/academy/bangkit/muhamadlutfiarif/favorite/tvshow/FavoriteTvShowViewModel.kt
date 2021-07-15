@@ -1,10 +1,13 @@
-package academy.bangkit.muhamadlutfiarif.moviecatalogue.home.tvshow
+package academy.bangkit.muhamadlutfiarif.favorite.tvshow
 
 import academy.bangkit.muhamadlutfiarif.core.domain.usecase.CatalogueUseCase
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveDataReactiveStreams
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
+import androidx.lifecycle.ViewModel
 import javax.inject.Inject
 
-class TvShowViewModel @Inject constructor(private val catalogueUseCase: CatalogueUseCase): ViewModel() {
+class FavoriteTvShowViewModel @Inject constructor(private val catalogueUseCase: CatalogueUseCase): ViewModel() {
 
     private val tvShowId = MutableLiveData<Int>()
 
@@ -12,7 +15,7 @@ class TvShowViewModel @Inject constructor(private val catalogueUseCase: Catalogu
         tvShowId.value = id
     }
 
-    fun getTvShows() = LiveDataReactiveStreams.fromPublisher(catalogueUseCase.getTvShows())
+    fun getFavoriteTvShows() = LiveDataReactiveStreams.fromPublisher(catalogueUseCase.getFavoriteTvShows())
 
     var tvShowDetail = Transformations.switchMap(tvShowId) { mTvShowId ->
         LiveDataReactiveStreams.fromPublisher(catalogueUseCase.getTvShowById(mTvShowId))

@@ -2,8 +2,8 @@ package academy.bangkit.muhamadlutfiarif.moviecatalogue.home
 
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.R
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.databinding.ActivityHomeBinding
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.favorite.FavoriteActivity
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -44,7 +44,8 @@ class HomeActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.favorite_btn -> {
-                val intent = Intent(this, FavoriteActivity::class.java)
+                val uri = Uri.parse("moviecatalogue://favorite")
+                val intent = Intent(Intent.ACTION_VIEW, uri)
                 startActivity(intent)
                 true
             }
