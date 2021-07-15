@@ -1,8 +1,10 @@
 package academy.bangkit.muhamadlutfiarif.moviecatalogue.favorite.movie
 
+import academy.bangkit.muhamadlutfiarif.core.domain.model.Movie
+import academy.bangkit.muhamadlutfiarif.core.ui.adapter.MovieClickListener
+import academy.bangkit.muhamadlutfiarif.core.ui.adapter.MovieListAdapter
+import academy.bangkit.muhamadlutfiarif.core.ui.viewmodel.ViewModelFactory
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.MyApplication
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.domain.model.Movie
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.ui.adapter.MovieClickListener
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,9 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.databinding.FragmentFavoriteMovieBinding
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.detail.DetailActivity
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.ui.adapter.MovieListAdapter
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.home.movie.MovieViewModel
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.ui.viewmodel.ViewModelFactory
 import android.content.Context
 import android.content.Intent
 import androidx.fragment.app.viewModels

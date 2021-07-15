@@ -1,7 +1,7 @@
 package academy.bangkit.muhamadlutfiarif.moviecatalogue
 
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.di.CoreComponent
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.di.DaggerCoreComponent
+import academy.bangkit.muhamadlutfiarif.core.di.CoreComponent
+import academy.bangkit.muhamadlutfiarif.core.di.DaggerCoreComponent
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.di.AppComponent
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.di.DaggerAppComponent
 import android.app.Application

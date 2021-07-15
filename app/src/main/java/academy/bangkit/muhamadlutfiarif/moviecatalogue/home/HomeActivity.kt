@@ -3,7 +3,6 @@ package academy.bangkit.muhamadlutfiarif.moviecatalogue.home
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.R
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.databinding.ActivityHomeBinding
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.favorite.FavoriteActivity
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.ui.adapter.SectionsPagerAdapter
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

@@ -1,8 +1,10 @@
 package academy.bangkit.muhamadlutfiarif.moviecatalogue.favorite.tvshow
 
+import academy.bangkit.muhamadlutfiarif.core.domain.model.TvShow
+import academy.bangkit.muhamadlutfiarif.core.ui.adapter.TvShowClickListener
+import academy.bangkit.muhamadlutfiarif.core.ui.adapter.TvShowListAdapter
+import academy.bangkit.muhamadlutfiarif.core.ui.viewmodel.ViewModelFactory
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.MyApplication
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.domain.model.TvShow
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.ui.adapter.TvShowClickListener
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,9 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.databinding.FragmentFavoriteTvShowBinding
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.detail.DetailActivity
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.ui.adapter.TvShowListAdapter
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.home.tvshow.TvShowViewModel
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.ui.viewmodel.ViewModelFactory
 import android.content.Context
 import android.content.Intent
 import androidx.fragment.app.viewModels

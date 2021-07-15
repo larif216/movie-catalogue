@@ -1,9 +1,10 @@
 package academy.bangkit.muhamadlutfiarif.moviecatalogue.home.movie
 
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.domain.usecase.CatalogueUseCase
+import academy.bangkit.muhamadlutfiarif.core.domain.usecase.CatalogueUseCase
 import androidx.lifecycle.*
+import javax.inject.Inject
 
-class MovieViewModel(private val catalogueUseCase: CatalogueUseCase): ViewModel() {
+class MovieViewModel @Inject constructor(private val catalogueUseCase: CatalogueUseCase): ViewModel() {
 
     private val movieId = MutableLiveData<Int>()
 

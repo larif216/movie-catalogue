@@ -1,7 +1,7 @@
 package academy.bangkit.muhamadlutfiarif.moviecatalogue.di
 
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.domain.usecase.CatalogueInteractor
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.domain.usecase.CatalogueUseCase
+import academy.bangkit.muhamadlutfiarif.core.domain.usecase.CatalogueInteractor
+import academy.bangkit.muhamadlutfiarif.core.domain.usecase.CatalogueUseCase
 import dagger.Binds
 import dagger.Module
 

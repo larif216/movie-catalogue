@@ -1,9 +1,12 @@
 package academy.bangkit.muhamadlutfiarif.moviecatalogue.home.movie
 
+import academy.bangkit.muhamadlutfiarif.core.domain.model.Movie
+import academy.bangkit.muhamadlutfiarif.core.ui.adapter.MovieClickListener
+import academy.bangkit.muhamadlutfiarif.core.ui.adapter.MovieListAdapter
+import academy.bangkit.muhamadlutfiarif.core.ui.viewmodel.ViewModelFactory
+import academy.bangkit.muhamadlutfiarif.core.utils.vo.Status
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.MyApplication
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.R
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.domain.model.Movie
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.ui.adapter.MovieClickListener
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,9 +14,6 @@ import android.view.View
 import android.view.ViewGroup
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.databinding.FragmentMovieBinding
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.detail.DetailActivity
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.ui.adapter.MovieListAdapter
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.ui.viewmodel.ViewModelFactory
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.utils.vo.Status
 import android.content.Context
 import android.content.Intent
 import android.widget.Toast
@@ -23,10 +23,10 @@ import javax.inject.Inject
 
 class MovieFragment : Fragment(), MovieClickListener {
 
+    private lateinit var binding: FragmentMovieBinding
+
     @Inject
     lateinit var factory: ViewModelFactory
-
-    private lateinit var binding: FragmentMovieBinding
 
     private val viewModel: MovieViewModel by viewModels {
         factory

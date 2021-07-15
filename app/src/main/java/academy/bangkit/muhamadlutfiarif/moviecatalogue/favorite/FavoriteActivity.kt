@@ -2,7 +2,6 @@ package academy.bangkit.muhamadlutfiarif.moviecatalogue.favorite
 
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.R
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.databinding.ActivityFavoriteBinding
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.ui.adapter.FavoriteSectionsPagerAdapter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.google.android.material.tabs.TabLayoutMediator

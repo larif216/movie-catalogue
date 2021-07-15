@@ -1,12 +1,12 @@
 package academy.bangkit.muhamadlutfiarif.moviecatalogue.detail
 
+import academy.bangkit.muhamadlutfiarif.core.data.source.remote.RemoteDataSource
+import academy.bangkit.muhamadlutfiarif.core.ui.viewmodel.ViewModelFactory
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.MyApplication
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.R
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.data.source.remote.RemoteDataSource
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.databinding.ActivityDetailBinding
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.home.movie.MovieViewModel
 import academy.bangkit.muhamadlutfiarif.moviecatalogue.home.tvshow.TvShowViewModel
-import academy.bangkit.muhamadlutfiarif.moviecatalogue.core.ui.viewmodel.ViewModelFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -14,7 +14,6 @@ import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.core.app.ShareCompat
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import javax.inject.Inject
