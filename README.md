@@ -1,0 +1,1 @@
+[![larif216](https://circleci.com/gh/larif216/movie-catalogue.svg?style=svg)](https://circleci.com/gh/larif216/movie-catalogue)
