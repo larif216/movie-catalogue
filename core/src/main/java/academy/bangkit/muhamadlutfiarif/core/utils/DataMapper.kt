@@ -6,15 +6,17 @@ import academy.bangkit.muhamadlutfiarif.core.data.source.remote.response.MovieRe
 import academy.bangkit.muhamadlutfiarif.core.data.source.remote.response.TvShowResponse
 import academy.bangkit.muhamadlutfiarif.core.domain.model.Movie
 import academy.bangkit.muhamadlutfiarif.core.domain.model.TvShow
+import android.util.Log
 
 object DataMapper {
     fun mapMovieResponseToEntities(input: List<MovieResponse>): List<MovieEntity> {
         val movieList = ArrayList<MovieEntity>()
         input.map {
+            val releaseDate = if (it.releaseDate == null) "Coming soon" else it.releaseDate
             val movie = MovieEntity(
                 id = it.id,
                 title = it.title,
-                releaseDate = it.releaseDate,
+                releaseDate = releaseDate,
                 userScore = it.userScore.toString(),
                 overview = it.overview,
                 poster = it.poster,
